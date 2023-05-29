@@ -28,5 +28,11 @@ export default defineNuxtConfig({
                 },
             ],
         },
-    }
+    },
+    plugins: [
+        // Other plugins...
+        // { src: '~/plugins/fetchData', mode: 'client' }
+      ],
+      
+      
 })

@@ -16,7 +16,6 @@
                         <Card :data="item"></Card>
                     </div>
                 </div>
-
             </section>
             <Explore/>
             <Order/>

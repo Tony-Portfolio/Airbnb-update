@@ -3,7 +3,7 @@
         <div class="flex flex-col gap-4">
             <NuxtLink :to="/hotel/ + data.id" class = "flex flex-col gap-2">
                 <div class="relative">
-                    <img :src="data.img" alt="" class="w-[full] rounded-lg h-[full]">
+                    <img :src="data.img" alt="" class="w-full h-full rounded-lg ">
                     <div class="absolute bottom-[10px] left-[10px] bg-white w-[60px] h-[70px] rounded-se-lg rounded-ee-lg">
                         <div class="flex items-center justify-center h-full h-full relative">
                             <img :src="data.owner_img" alt=""
