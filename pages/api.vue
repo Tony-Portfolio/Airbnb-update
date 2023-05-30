@@ -60,7 +60,6 @@
   
 
 <script>
-import json from '~/plugins/testing.json';
 import axios from 'axios';
 
 

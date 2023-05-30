@@ -15,8 +15,10 @@
                   class="text-[13px] font-[400]">malam</span></h3>
               <p class="text-[11px] font-[500] text-black/[0.8] underline">1 ulasan</p>
             </div>
-            <button
-              class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
+            <NuxtLink :to="'/hotel/book/' + $route.params.id">
+              <button
+                class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -234,8 +236,10 @@
                     </select>
                   </div>
                 </div>
-                <button
-                  class="bg-[#E01461] w-full p-3 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
+                <NuxtLink :to="'/hotel/book/' + $route.params.id">
+                  <button
+                    class="bg-[#E01461] w-full p-3 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
+                </NuxtLink>
               </div>
               <div class="flex flex-col gap-4">
                 <p class="text-[14px] text-center">Anda belum dikenakan biaya</p>
@@ -268,8 +272,11 @@
             <p class="text-[14px] font-[400]">{{ hotelData.night }}</p>
           </div>
           <div class="">
-            <button
-              class="bg-[#E01461] w-full p-3 px-5 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
+            <NuxtLink :to="'/hotel/book/' + $route.params.id">
+              <button
+                class="bg-[#E01461] w-full p-3 px-5 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
+            </NuxtLink>
+
           </div>
         </div>
       </div>
