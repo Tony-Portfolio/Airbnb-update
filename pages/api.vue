@@ -62,8 +62,6 @@
 <script>
 import axios from 'axios';
 
-
-
 export default {
     data() {
         return {
@@ -71,7 +69,6 @@ export default {
                 header: "header",
                 footer: "footer"
             },
-            jsonData: json,
             response:null,
         };
     },
@@ -121,7 +118,6 @@ export default {
         try {
             response = await axios.request(options);
         } catch (error) {
-            console.error(error);
         }
 
         return {
