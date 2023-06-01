@@ -1,12 +1,10 @@
 <template>
     <div>
-
         <NuxtLayout :name="layouts.header" @inputSubmitted="handleInput"></NuxtLayout>
 
         <NuxtLayout :name="layouts.container">
-            <section class="my-2">
-                <div
-                    class="grid grid-rows-[repeat(auto,550px)] gap-y-8 gap-6 my-4" :class="fixGridDataInit">
+            <section class="my-8">
+                <div class="w-full grid grid-rows-[repeat(auto,550px)] gap-y-8 gap-6 my-4" :class="fixGridDataInit">
                     <div v-for="item in dataProduct" :key="item.id">
                         <productCard :data="item"></productCard>
                     </div>
@@ -19,10 +17,7 @@
 </template>
 
 <script>
-
 import axios from 'axios';
-
-
 export default {
     data() {
         return {
@@ -32,34 +27,44 @@ export default {
                 footer: "footer"
             },
             dataProduct: [],
-            displayedInput:""
+            displayedInput: "",
         }
     },
     computed: {
         query() {
+            const route = useRoute();
+            const id = route.params.id
             // Access the search variable from nav-search.vue
-            return 'https://dummyjson.com/products/search?q=' + encodeURIComponent(this.displayedInput)
-        },
-        fixGridDataInit(){
-            if(this.dataProduct.length > 3){
-                return 'grid-cols-[repeat(auto-fit,minmax(280px,1fr))]';
+            if (this.displayedInput.length > 0) {
+                return 'https://dummyjson.com/products/search?q=' + encodeURIComponent(this.displayedInput)
             }
             else{
+                return "https://dummyjson.com/products/category/" + id
+            }
+        },
+        fixGridDataInit() {
+            if (this.dataProduct.length > 3) {
+                return 'grid-cols-[repeat(auto-fit,minmax(280px,1fr))]';
+            }
+            else {
                 return 'grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(280px,300px))]';
             }
         }
+    },
+    async created() {
+        this.getProductData();
     },
     methods: {
         handleInput(input) {
             this.displayedInput = input;
             this.getProductData();
         },
-        fixGridDataLoaded(){
-            if(this.dataProduct.length > 3){
+        fixGridDataLoaded() {
+            if (this.dataProduct.length > 3) {
                 return 'grid-cols-[repeat(auto-fit,minmax(280px,1fr))]';
             }
-            else{
-                return 'grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(280px,300px))]';
+            else {
+                return 'grid-cols-[repeat(auto-fit,minmax(280px,300px))]';
             }
         },
         async getProductData() {
@@ -71,9 +76,6 @@ export default {
                 console.log(error);
             }
         },
-    },
-    async created() {
-        this.getProductData();
-    },
+    }
 }
 </script>

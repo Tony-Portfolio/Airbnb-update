@@ -1,20 +1,20 @@
 <template>
-  <div class="mt-[88px] ml-[80px]">
-    <h1 class="font-semibold mt-[88] ml-[80] mb-[24] text-xl">
-      Hébergements Airbnb Plus
-    </h1>
-    <p class="font-semi mt-[8px]">
-      Une sélection de logements vérifiés selon des critères de qualité et de
-      design
-    </p>
-    <div class="mt-[24px]">F
-      <img class="w-[1206px] t-[79px] h-[310px]" src="/img/h1.png" />
+    <div>
+        <input type="text" placeholder="Cari barang"
+            class="flex border-2 border-black/[0.1] shadow-lg py-3 px-4 pr-14 rounded-full text-[14px] font-[500] block w-[300px]"
+            v-model="searchValue"/>
+
+        <p>Search value: {{ searchValue }}</p>
     </div>
-  </div>
 </template>
-
+  
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            searchValue: 'Something'
+        }
+    }
+}
 </script>
-
-<style></style>
+  

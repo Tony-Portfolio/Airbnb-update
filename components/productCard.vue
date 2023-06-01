@@ -1,9 +1,27 @@
 <template>
     <div>
         <div class="flex flex-col gap-4">
-            <NuxtLink :to="'/tugas/product/' + data.id" class = "flex flex-col gap-2">
+            <NuxtLink :to="'/product/details/' + data.id" class="flex flex-col gap-2">
                 <div class="relative">
-                    <img :src="data.thumbnail" alt="" class="w-full h-[250px] object-cover object-top rounded-lg ">
+                    <Swiper class="groupSwiper"
+                        :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperPagination, SwiperNavigation]"
+                        :slides-per-view="1" :loop="false" :effect="'creative'" :navigation="true" :hashNavigation="{
+                            watchState: true,
+                        }" :pagination="{ clickable: true }" :creative-effect="{
+    prev: {
+        shadow: false,
+        translate: ['-100%', 0, -1],
+    },
+    next: {
+        translate: ['100%', 0, 0],
+    },
+}">
+                        <SwiperSlide v-for="image in data.images">
+                            <NuxtLink :to="'/product/details/' + data.id">
+                                <img :src="image" alt="" class="w-full h-56 duration-1000 rounded-lg object-cover object-top" loading="lazy">
+                            </NuxtLink>
+                        </SwiperSlide>
+                    </Swiper>
                 </div>
                 <div class="flex flex-col">
                     <div class="flex items-center justify-between font-[500]">
@@ -22,7 +40,8 @@
                         <p class="text-black/[0.6] font-[500] text-[14px]">{{ data.night }}</p>
                         <p class="text-black/[1] font-[500] text-[14px]">Brand : {{ data.brand }}</p>
                         <p class="text-black/[1] font-[500] text-[14px]">Stock : {{ data.stock }}</p>
-                        <p class="text-black/[0.6] text-[15px] font-[500] my-2"><span class="text-black">Rp. {{ (data.price*15003).toLocaleString()
+                        <p class="text-black/[0.6] text-[15px] font-[500] my-2"><span class="text-black">Rp. {{
+                            (data.price * 15003).toLocaleString()
                         }}</span></p>
                     </div>
                 </div>
@@ -36,3 +55,39 @@ const props = defineProps({
     data: Object,
 })
 </script>
+
+<style>
+.swiper-button-next {
+    @apply flex items-center justify-center text-sm text-rose-500 hover:translate-x-1 duration-300;
+    display: none;
+}
+
+.swiper-button-prev {
+    @apply flex items-center justify-center text-sm text-rose-500 hover:translate-x-1 duration-300;
+    display: none;
+}
+
+.swiper-button-disabled {
+    display: none;
+}
+
+
+.groupSwiper:hover .swiper-button-prev {
+    display: block;
+}
+
+.groupSwiper:hover .swiper-button-next {
+    display: block;
+}
+
+.swiper-pagination-bullet {
+    @apply bg-rose-400;
+    width: 6px;
+    height: 6px;
+    opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+</style>

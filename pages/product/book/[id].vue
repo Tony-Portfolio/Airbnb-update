@@ -16,7 +16,7 @@
                 <h4
                     class="font-[500] text-lg md:text-3xl flex justify-center md:justify-start items-center gap-2 relative md:text-left text-center w-full block">
                     Konfirmasi dan bayar
-                    <NuxtLink :to="'/tugas/product/' + $route.params.id">
+                    <NuxtLink :to="'/product/details/' + $route.params.id">
                         <span class="absolute top-[50%] translate-y-[-50%] left-[10px] md:left-[-40px] z-[40]"><svg
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">

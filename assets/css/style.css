@@ -20,25 +20,25 @@
     background-image: linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)), url('/images/order.jpg');
 }
 
-.navigation::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 4px;
-    height:6px;
+    height:4px;
     /* Set the width of the scrollbar */
 }
 
-.navigation::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: white;
     /* Set the background color of the scrollbar track */
 }
 
-.navigation::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgb(255,90,95);
     /* Set the color of the scrollbar thumb */
     border-radius: 4px;
     /* Round the corners of the scrollbar thumb */
 }
 
-.navigation::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: rgb(255, 75, 81);
     /* Set the color of the scrollbar thumb on hover */
 }
