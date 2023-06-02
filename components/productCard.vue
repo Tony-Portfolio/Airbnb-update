@@ -39,10 +39,10 @@
                         <p class="text-black/[0.6] font-[500] text-[14px]">{{ data.description }}</p>
                         <p class="text-black/[0.6] font-[500] text-[14px]">{{ data.night }}</p>
                         <p class="text-black/[1] font-[500] text-[14px]">Brand : {{ data.brand }}</p>
-                        <p class="text-black/[1] font-[500] text-[14px]">Stock : {{ data.stock }}</p>
-                        <p class="text-black/[0.6] text-[15px] font-[500] my-2"><span class="text-black">Rp. {{
-                            (data.price * 15003).toLocaleString()
-                        }}</span></p>
+                        <p class="text-black/[1] font-[500] text-[14px]">Stok : {{ data.stock }}</p>
+                        <p class="text-black/[0.6] text-[15px] font-[500] my-2"><span class="text-black">$ {{
+                            (data.price * 1).toLocaleString()
+                        }}.00</span></p>
                     </div>
                 </div>
             </NuxtLink>

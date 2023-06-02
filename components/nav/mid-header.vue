@@ -10,7 +10,7 @@
                 <div class="w-full">
                     <div class="relative">
                         <input type="text" placeholder="cari barang"
-                            class="flex border-2 border-black/[0.1] shadow-lg py-3 px-4 pr-14 rounded-full text-[14px] font-[500] block md:w-[300px] w-full lg:focus:w-[450px]" style="transition: width 0.5s;outline:rgba(0,0,0,0.5);"
+                            class="flex border-2 border-black/[0.1] shadow-lg py-3 px-4 pr-14 rounded-full text-[14px] font-[500] block md:w-[350px] w-full lg:focus:w-[450px]" style="transition: width 0.5s;outline:rgba(0,0,0,0.5);"
                             v-model="search" @keyup="submitInput">
                         <div
                             class="w-[35px] h-[35px] text-white rounded-full bg-[#FF385C] flex items-center justify-center p-2 absolute top-[50%] right-[10px] translate-y-[-50%]">

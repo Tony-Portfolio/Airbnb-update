@@ -10,6 +10,7 @@
                 </div>
             </div>
         </div>
+        {{ this.$store.state.dataCard }}
         <div class=" md:mx-auto md:my-4 md:my-14 flex flex-col md:gap-16 md:w-9/12 w-full px-4 md:px-14 md:px-0 my-16">
             <div
                 class="w-full flex items-center justify-center text-center md:relative fixed top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20]">
@@ -31,8 +32,9 @@
                     <div
                         class="p-6 w-full border-[1px] border-black/[0.2] rounded-xl flex items-center justify-between md:flex hidden">
                         <div class="flex flex-col gap-2">
-                            <h3 class="font-[500] text-[16px]">ini jarang ditemukan</h3>
-                            <p class="font-[400] text-[14px]">Tempat milik Mr Bagus biasanya sudah terpesan.</p>
+                            <h3 class="font-[500] text-[16px]">Produk Berkualitas</h3>
+                            <p class="font-[400] text-[14px]">Produk dari brand {{ dataProduct.brand }} dengan harga
+                                terjangkau {{ $route.query.quantity }}</p>
                         </div>
                         <div>
                             <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
@@ -49,16 +51,16 @@
                         </div>
                     </div>
                     <div class="md:flex flex-col gap-6 w-full hidden">
-                        <h4 class="font-[500] text-2xl">Perjalanan Anda</h4>
+                        <h4 class="font-[500] text-2xl">Detail Pemesanan</h4>
                         <div class="flex flex-col gap-1 relative w-full">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Tanggal</h5>
-                            <p class="font-[400] text-[15px] text-black">1-6 Jun</p>
+                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Produk</h5>
+                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.title }}</p>
                             <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
                                 Edit</p>
                         </div>
                         <div class="flex flex-col gap-2 relative w-full">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Tamu</h5>
-                            <p class="font-[400] text-[15px] text-black">1 tamu</p>
+                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Brand</h5>
+                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.brand }}</p>
                             <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
                                 Edit</p>
                         </div>
@@ -362,12 +364,14 @@
                     <div class="">
                         <div class="flex items-start justify-start gap-2">
                             <div class="">
-                                <img :src="dataProduct.thumbnail" alt="" class="w-[150px] h-[120px] rounded-lg object-cover">
+                                <img :src="dataProduct.thumbnail" alt=""
+                                    class="w-[150px] h-[120px] rounded-lg object-cover">
                             </div>
                             <div class="flex justify-between flex-col h-[120px] text-left md:text-left">
                                 <div>
                                     <h4>{{ dataProduct.title }}</h4>
-                                    <span class="text-[12px] font-[400] text-black/[0.8]">{{ dataProduct.brand }}</span>
+                                    <span class="text-[12px] font-[400] text-black/[0.8]">{{ dataProduct.brand }} - {{
+                                        dataProduct.category }}</span>
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <div class="flex items-center gap-2">
@@ -389,17 +393,17 @@
 
                     </div>
                     <hr>
-                    <div class="flex flex-col gap-6 w-full md:hidden text-left">
-                        <h4 class="font-[500] text-2xl">Perjalanan Anda</h4>
+                    <div class="flex flex-col gap-6 w-full md:hidden">
+                        <h4 class="font-[500] text-2xl">Detail Pemesanan</h4>
                         <div class="flex flex-col gap-1 relative w-full">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Tanggal</h5>
-                            <p class="font-[400] text-[15px] text-black">1-6 Jun</p>
+                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Produk</h5>
+                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.title }}</p>
                             <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
                                 Edit</p>
                         </div>
                         <div class="flex flex-col gap-2 relative w-full">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Tamu</h5>
-                            <p class="font-[400] text-[15px] text-black">1 tamu</p>
+                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Brand</h5>
+                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.brand }}</p>
                             <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
                                 Edit</p>
                         </div>
@@ -408,15 +412,15 @@
                     <div class="flex flex-col gap-6">
                         <h4 class="font-[600] text-xl text-black/[0.8] text-left">Perincian harga</h4>
                         <div class=" flex items-center justify-between">
-                            <p>Rp. {{ (dataProduct.price * 15000).toLocaleString() }}</p>
-                            <p>Rp. {{ (dataProduct.price * 15000).toLocaleString() }}</p>
+                            <p>$. {{ (dataProduct.price * 1).toLocaleString() }}.00</p>
+                            <p>$. {{ (dataProduct.price * 1).toLocaleString() }}.00</p>
                         </div>
                     </div>
                     <hr>
                     <div class="">
                         <div class="font-[13px] font-[600] flex items-center justify-between text-black/[0.8]">
                             <h4>Total (<span class="underline">IDR</span>)</h4>
-                            <p>Rp. {{ (dataProduct.price * 15000).toLocaleString() }}</p>
+                            <p>$. {{ (dataProduct.price * 1).toLocaleString() }}.00</p>
                         </div>
                     </div>
                 </div>
@@ -457,6 +461,7 @@
 </template>
 <script>
 import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -465,14 +470,19 @@ export default {
                 footer: "footer"
             },
             dataProduct: [],
+            quantity: 0,
+            dataq:null,
         }
     },
-
     async created() {
         this.getProductData();
     },
+    computed: {
+        getData() {
+            this.handleOrder
+        }
+    },
     methods: {
-
         async getProductData() {
             const route = useRoute();
             const id = route.params.id;
@@ -483,7 +493,13 @@ export default {
                 console.log(res);
                 console.log(error);
             }
-        }
+        },
+        handleOrder(input) {
+            this.quantity = input;
+        },
+    },
+    mounted(){
+        console.log(this.$store.state.dataCard)
     }
 }
 </script>
