@@ -10,7 +10,6 @@
                 </div>
             </div>
         </div>
-        {{ this.$store.state.dataCard }}
         <div class=" md:mx-auto md:my-4 md:my-14 flex flex-col md:gap-16 md:w-9/12 w-full px-4 md:px-14 md:px-0 my-16">
             <div
                 class="w-full flex items-center justify-center text-center md:relative fixed top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20]">
@@ -52,15 +51,9 @@
                     </div>
                     <div class="md:flex flex-col gap-6 w-full hidden">
                         <h4 class="font-[500] text-2xl">Detail Pemesanan</h4>
-                        <div class="flex flex-col gap-1 relative w-full">
+                        <div class="flex flex-col gap-1 relative w-full" v-for="items in this.$store.state.dataCart.products">
                             <h5 class="font-[600] text-[16px] text-black/[0.8]">Produk</h5>
-                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.title }}</p>
-                            <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
-                                Edit</p>
-                        </div>
-                        <div class="flex flex-col gap-2 relative w-full">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Brand</h5>
-                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.brand }}</p>
+                            <p class="font-[400] text-[15px] text-black">{{ items.title }}  ${{ items.discountedPrice }}.00</p>
                             <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
                                 Edit</p>
                         </div>

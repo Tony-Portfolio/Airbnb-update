@@ -1,0 +1,37 @@
+{
+    "id": 21,
+    "products": [
+        {
+            "id": 2,
+            "title": "iPhone X",
+            "price": 899,
+            "quantity": 4,
+            "total": 3596,
+            "discountPercentage": 17.94,
+            "discountedPrice": 2951
+        },
+        {
+            "id": 10,
+            "title": "HP Pavilion 15-DK1056WM",
+            "price": 1099,
+            "quantity": 12,
+            "total": 13188,
+            "discountPercentage": 6.18,
+            "discountedPrice": 12373
+        },
+        {
+            "id": 15,
+            "title": "Eau De Perfume Spray",
+            "price": 30,
+            "quantity": 2,
+            "total": 60,
+            "discountPercentage": 10.99,
+            "discountedPrice": 53
+        }
+    ],
+    "total": 15437,
+    "discountedTotal": 53,
+    "userId": 1,
+    "totalProducts": 3,
+    "totalQuantity": 18
+}

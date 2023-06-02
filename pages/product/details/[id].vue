@@ -144,13 +144,15 @@
                                 </div>
                                 <div class="flex md:flex-row items-center justify-center gap-2 mt-8 flex-nowrap flex-col">
                                     <button
-                                        class="sm:text-base text-sm sm:p-4 p-0 text-[#FF385C] py-[13.5px] border-2 border-[#FF385C] w-full p-2 hover:bg-[#FF385C] hover:text-white transition duration-300 ease-in-out" @click="cartData"><i
-                                            class="fa-solid fa-cart-shopping mx-2"></i> Tambah ke keranjang</button>
-                                    <button class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-[#FF385C] w-full p-2"
-                                        >
-                                        <NuxtLink :to="'/product/book/' + dataProduct.id">Beli
-                                            Sekarang</NuxtLink>
-                                    </button>
+                                        class="sm:text-base text-sm sm:p-4 p-0 text-[#FF385C] py-[13.5px] border-2 border-[#FF385C] w-full p-2 hover:bg-[#FF385C] hover:text-white transition duration-300 ease-in-out"
+                                        @click="cartData"><i class="fa-solid fa-cart-shopping mx-2"></i> Tambah ke
+                                        keranjang</button>
+                                    <NuxtLink :to="'/product/book/' + dataProduct.id" class="w-full"><button
+                                            class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-[#FF385C] w-full p-2">
+                                            Beli
+                                            Sekarang
+                                        </button>
+                                    </NuxtLink>
                                     <button
                                         class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-pink-500 p-2 md:block hidden md:w-[120px]">
                                         <i class="fa-regular fa-lg fa-heart mx-1"></i></button>
@@ -185,7 +187,10 @@ export default {
             stock: 0,
             price: 0,
             totalPrice: 0,
-            cart: []
+            cart: [],
+            totalQuantity: 0,
+            totalPrice: 0,
+            totalProducts: 0
         }
     },
 
@@ -198,27 +203,66 @@ export default {
     methods: {
         ...mapMutations(['setdatacart']),
         async cartData() {
-            const query = "https://dummyjson.com/carts/add";
-            const requestData = {
-                userId: 1,
-                products: [
-                    {
-                        id: this.dataProduct.id,
-                        quantity: this.quantity,
-                    },
-                ],
-            };
+            if (this.$store.state.dataCart.length == 0) {
+                const query = "https://dummyjson.com/carts/add";
+                const requestData = {
+                    userId: 1,
+                    products: [
+                        {
+                            id: this.dataProduct.id,
+                            quantity: this.quantity,
+                        },
+                    ],
+                };
 
-            try {
-                const response = await axios.post(query, requestData, {
-                    headers: { 'Content-Type': 'application/json' },
-                });
-                this.cart = response
-                console.log(response);
-                this.setdatacart(this.cart.data)
+                try {
+                    const response = await axios.post(query, requestData, {
+                        headers: { 'Content-Type': 'application/json' },
+                    });
+                    this.cart = response
+                    alert("Produk ditambahkan kedalam keranjang");
+                    console.log(response);
+                    this.setdatacart(this.cart.data)
 
-            } catch (error) {
-                console.log(error);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            else {
+                console.log("runnin else")
+                const query = "https://dummyjson.com/carts/add";
+                const requestData = {
+                    userId: 1,
+                    products: [
+                        {
+                            id: this.dataProduct.id,
+                            quantity: this.quantity,
+                        },
+                    ],
+                };
+                try {
+                    const response = await axios.post(query, requestData, {
+                        headers: { 'Content-Type': 'application/json' },
+                    });
+                    alert("Produk ditambahkan kedalam keranjang");
+                    console.log(response);
+
+                    this.cart = response
+                    this.cart.data.products = this.$store.state.dataCart.products.concat(response.data.products)
+                    
+                    this.cart.data.products.forEach((product) => {
+                        this.totalProducts += 1
+                        this.totalQuantity += product.quantity;
+                        this.totalPrice += product.discountedPrice;
+                    });
+                    this.cart.data.total = this.totalPrice
+                    this.cart.data.totalQuantity = this.totalQuantity
+                    this.cart.data.totalProducts = this.totalProducts
+                    this.setdatacart(this.cart.data)
+
+                } catch (error) {
+                    console.log(error);
+                }
             }
         },
         async getProductData() {

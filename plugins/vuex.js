@@ -2,12 +2,12 @@ import { createStore } from "vuex";
 const store = createStore({
   state() {
     return {
-      dataCard: [],
+      dataCart: [],
     };
   },
   mutations: {
     setdatacart(state, value){
-      state.dataCard = value
+      state.dataCart = value
     }
   },
 });
