@@ -11,7 +11,7 @@
                     <div class="relative">
                         <input type="text" placeholder="cari barang"
                             class="flex border-2 border-black/[0.1] shadow-lg py-3 px-4 pr-14 rounded-full text-[14px] font-[500] block md:w-[350px] w-full lg:focus:w-[450px]" style="transition: width 0.5s;outline:rgba(0,0,0,0.5);"
-                            v-model="search" @keyup="submitInput">
+                            v-model="search" @keyup="submitInput" @touchend="submitInput" @input="submitInput">
                         <div
                             class="w-[35px] h-[35px] text-white rounded-full bg-[#FF385C] flex items-center justify-center p-2 absolute top-[50%] right-[10px] translate-y-[-50%]">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

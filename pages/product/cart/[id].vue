@@ -350,11 +350,11 @@
                         <h4 class="font-[600] text-xl text-black/[0.8] text-left">Detail pemesanan & Perincian harga</h4>
                         <div class=" flex items-end justify-between relative" v-for="items in cart.products"
                             :key="items.id">
-                            <div class="flex gap-1">
+                            <div class="flex gap-2">
                                 <div class="">
                                     <img :src="getImg(items.id)" alt="" class = "w-[100px] h-[70px] object-cover object-top">
                                 </div>
-                                <div class="">
+                                <div class="flex flex-col justify-between">
                                     <h4 class="font-bold text-[16px]">{{ items.title }}</h4>
                                     <p class="font-[500] text-[15px]">$.{{ (items.price * 1).toLocaleString() }}.00 x {{
                                         items.quantity }}</p>
@@ -363,7 +363,7 @@
                             <p class="absolute top-0 right-[0px] font-[500] text-[16px] underline text-red-500 cursor-pointer"
                                 @click="removeCartData(items.id)">
                                 Hapus</p>
-                            <p class="font-[500] text-[15px]">$. {{ (items.total * 1).toLocaleString() }}.00</p>
+                            <p class="font-[500] text-[15px] whitespace-nowrap">$. {{ (items.total * 1).toLocaleString() }}.00</p>
                         </div>
                     </div>
                     <hr>
