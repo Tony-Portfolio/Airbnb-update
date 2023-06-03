@@ -63,11 +63,11 @@
                                     {{ dataProduct.rating }}</span>
                             </div>
                             <i class="fa-solid fa-circle text-[3px]"></i>
-                            <div class="flex items-center text-[14px] font-[500] gap-2" @click="share">
+                            <div class="flex items-center text-[14px] font-[500] gap-2">
                                 <p class="underline">Ulasan</p>
                             </div>
                             <i class="fa-solid fa-circle text-[3px]"></i>
-                            <div class="flex items-center text-[14px] font-[500] gap-2" @click="share">
+                            <div class="flex items-center text-[14px] font-[500] gap-2">
                                 <p class="underline">{{ dataProduct.brand }}</p>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 <SwiperSlide v-for="image in dataProduct.images">
                                     <NuxtLink :to="'/product/details/' + dataProduct.id">
                                         <img :src="image" alt=""
-                                            class="w-full h-[450px] duration-1000 rounded-lg object-cover object-top"
+                                            class="w-full h-[450px] duration-1000 object-cover object-top"
                                             loading="lazy">
                                     </NuxtLink>
                                 </SwiperSlide>
@@ -137,6 +137,9 @@
                         </h3>
                         <p class="my-2 my-4 text-lg font-[500]">
                             {{ dataProduct.description }}
+                        </p>
+                        <p class="text-base flex gap-2 my-2">
+                            Kondisi : Baru
                         </p>
                         <p class="text-base flex gap-2 my-2">
                             Brand :
@@ -223,12 +226,12 @@
                                         <img src = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" class = "w-[40px] bg-gray-500/[0.2] p-1 rounded-full">
                                     </div>
                                     <div class="">
-                                        <h3 class = "font-bold text-[15px]">Nama user</h3>
-                                        <p class = "font-[500] text-[13px]">Mei 2023</p>
+                                        <h3 class = "font-bold text-[15px]">jessica_23</h3>
+                                        <p class = "font-[500] text-[13px]">Mei 2022</p>
                                     </div>
                                 </div>
                                 <div class = "">
-                                    <p>lorem ipsum dolor si amet</p>
+                                    <p>Pengiriman nya cepat</p>
                                 </div>
                             </div>
                             <div class="flex flex-col gap-4">
@@ -237,12 +240,12 @@
                                         <img src = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" class = "w-[40px] bg-gray-500/[0.2] p-1 rounded-full">
                                     </div>
                                     <div class="">
-                                        <h3 class = "font-bold text-[15px]">Nama user</h3>
-                                        <p class = "font-[500] text-[13px]">Mei 2023</p>
+                                        <h3 class = "font-bold text-[15px]">Friska8</h3>
+                                        <p class = "font-[500] text-[13px]">June 2022</p>
                                     </div>
                                 </div>
                                 <div class = "">
-                                    <p>lorem ipsum dolor si amet</p>
+                                    <p>Produknya berkualitas dan sesuai dengan yang difoto</p>
                                 </div>
                             </div>
                             <div class="flex flex-col gap-4">
@@ -251,12 +254,12 @@
                                         <img src = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" class = "w-[40px] bg-gray-500/[0.2] p-1 rounded-full">
                                     </div>
                                     <div class="">
-                                        <h3 class = "font-bold text-[15px]">Nama user</h3>
-                                        <p class = "font-[500] text-[13px]">Mei 2023</p>
+                                        <h3 class = "font-bold text-[15px]">Agus77</h3>
+                                        <p class = "font-[500] text-[13px]">Feb 2022</p>
                                     </div>
                                 </div>
                                 <div class = "">
-                                    <p>lorem ipsum dolor si amet</p>
+                                    <p>Murah dan pengiriman cepat!</p>
                                 </div>
                             </div>
                         </div>

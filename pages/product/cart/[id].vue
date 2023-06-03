@@ -352,7 +352,7 @@
                             :key="items.id">
                             <div class="flex gap-2">
                                 <div class="">
-                                    <img :src="getImg(items.id)" alt="" class = "w-[100px] h-[70px] object-cover object-top">
+                                    <img :src="getImg(items.id)" alt="" class = "w-[100px] h-[90px] object-cover object-top">
                                 </div>
                                 <div class="flex flex-col justify-between">
                                     <h4 class="font-bold text-[16px]">{{ items.title }}</h4>

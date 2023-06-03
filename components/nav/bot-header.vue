@@ -55,14 +55,14 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
             </div> -->
         </div>
     </div>
-    <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded md:hidden block "><NuxtLink to="/product/cart/2" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount }})</NuxtLink></p>
+    <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded md:hidden block "><NuxtLink to="/product/cart/2" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i></NuxtLink></p>
 </template>
 <script>
 
 export default {
     data(){
         return{
-            cartCount:0,
+            
         }
     },
     computed: {
@@ -71,7 +71,6 @@ export default {
         }
     },
     mounted(){
-        this.cartCount = JSON.parse(localStorage.getItem('products')).length
     }
 }
 </script>
