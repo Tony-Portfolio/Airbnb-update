@@ -1,4 +1,5 @@
 <template>
+    <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded"><NuxtLink to="/product/cart/2" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount }})</NuxtLink></p>
     <nav class="w-full max-w-[1100px] mx-auto flex flex-col gap-4 md:block hidden">
         <div class="flex items-center justify-between py-4 md:mx-9">
             <div class="">
@@ -44,7 +45,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <p>Jadikan rumah anda airbnb</p>
+                <p class = "bg-[#FF385C] p-2 text-white rounded"><NuxtLink to="/product/cart/2"><i class="fa-solid fa-cart-shopping"></i> Keranjang : {{ cartCount }}</NuxtLink></p>
                 <div class="flex items-center p-1 border-[1px] border-black/[0.1] rounded-full gap-1 relative">
                     <div class="flex items-center gap-1" @click="dropdownmenu = !dropdownmenu">
                         <div class="mx-2">
@@ -84,7 +85,8 @@ export default {
             },
             dropdownmenu: false,
             search: "",
-            dataProduct: []
+            dataProduct: [],
+            cartCount:0
         }
     },
     methods: {
@@ -96,6 +98,7 @@ export default {
             }
         },
         dataExist() {
+            this.cartCount = JSON.parse(localStorage.getItem('products')).length
             if (this.dataProduct.length > 0) {
                 return ' flex';
             }

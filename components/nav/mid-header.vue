@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="items-center gap-4 justify-end md:flex hidden">
-                <p>Jadikan rumah anda airbnb</p>
+                <p class = "bg-[#FF385C] p-2 text-white rounded"><NuxtLink to="/product/cart/2"><i class="fa-solid fa-cart-shopping"></i> Keranjang : {{ cartCount }}</NuxtLink></p>
                 <div class="flex items-center p-1 border-[1px] border-black/[0.1] rounded-full gap-1 relative">
                     <div class="flex items-center gap-1 cursor-pointer" @click="dropdownmenu = !dropdownmenu">
                         <div class="mx-2">
@@ -61,13 +61,17 @@ export default {
     data() {
         return {
             dropdownmenu: false,
-            search: ''
+            search: '',
+            cartCount:0,
         };
     },
     methods: {
         submitInput() {
             this.$emit('Submitted', this.search);
         }
+    },
+    mounted(){
+        this.cartCount = JSON.parse(localStorage.getItem('products')).length
     }
 }
 </script>

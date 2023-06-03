@@ -1,5 +1,5 @@
 <template>
-    <section class="md:block hidden border-b-[1px] border-black/[0.1]">
+    <!-- <section class="md:block hidden border-b-[1px] border-black/[0.1]">
         <div class="bg-[#F7F7F7] py-5">
             <div class="w-11/12 mx-auto flex items-center justify-between">
                 <h2 class="text-xl font-[500]">Kamar dan 50+ fitur terkini</h2>
@@ -11,5 +11,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </template>

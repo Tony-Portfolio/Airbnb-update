@@ -12,11 +12,11 @@
                     </ul>
                     <div class="flex items-center gap-4 whitespace-nowrap opacity-0">
                         <div class="flex flex-col">
-                            <h3 class="font-[15px] font-[500]">Rp. {{ dataProduct.price }} <span
+                            <h3 class="font-[15px] font-[500]">Rp. {{ dataProduct.price }}.00 <span
                                     class="text-[13px] font-[400]">malam</span></h3>
                             <p class="text-[11px] font-[500] text-black/[0.8] underline">1 ulasan</p>
                         </div>
-                        <NuxtLink :to="'/product/book/' + $route.params.id">
+                        <NuxtLink :to="'/product/cart/' + $route.params.id">
                             <button
                                 class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
                         </NuxtLink>
@@ -47,7 +47,7 @@
         <DetailsNavSearch />
         <main class="w-full max-w-[1100px] md:mx-auto mx-0" v-if="dataProduct" :key="dataProduct.id">
             <section class="md:my-10 md:mx-4 md:p-4 md:p-0">
-                <div class="grid gap-10 w-full grid-cols-1 md:grid-cols-[300px_1fr]" style="place-content:center;">
+                <div class="grid gap-10 w-full grid-cols-1" style="place-content:center;">
                     <div class="">
                         <div class="md:hidden block">
                             <Swiper class="groupSwiper"
@@ -72,11 +72,11 @@
                                 </SwiperSlide>
                             </Swiper>
                         </div>
-                        <div class="md:block hidden">
+                        <div class="hidden md:flex gap-2">
                             <img :src="mainImg" alt=""
                                 class="w-fit block m-auto md:w-full aspect-square object-cover object-top"
                                 id="img-variant-show">
-                            <div class="md:grid-cols-2 grid-row-3 gap-2 grid-cols-5 grid my-2 p-2 md:p-0">
+                            <div class="md:grid-cols-2 grid-row-3 gap-2 grid-cols-5 grid p-2 md:p-0">
                                 <img :src="dataProduct.thumbnail" alt=""
                                     class="border-[1px] border-black/[0.2] w-full h-full object-cover rounded-lg aspect-video cursor-pointer"
                                     @click="handleImg(dataProduct.thumbnail)">
@@ -116,7 +116,7 @@
                             {{ dataProduct.stock }}
                         </p>
                         <p class="text-2xl my-8"><span class="text-lg">$</span>
-                            {{ dataProduct.price }}
+                            {{ (dataProduct.price * 1).toLocaleString() }}.00
                         </p>
                         <!-- <p>Category : </p> -->
                         <!-- <p>Brands : </p> -->
@@ -130,7 +130,7 @@
                                     <p class="text-xl font-bold text-[#FF385C] cursor-pointer w-[40px] text-center bg-slate-800/[0.015] p-2 rounded"
                                         @click="updateQuantity(-1)">-</p>
                                     <input type="number" min="1" :max="dataProduct.stock"
-                                        class="text-center w-[200px] border-2 border-black/[0.1] rounded p-2"
+                                        class="text-center w-full md:w-[200px] border-2 border-black/[0.1] rounded p-2"
                                         v-model="quantity" @input="calculatePrice" />
                                     <p class="text-xl font-bold text-[#FF385C] cursor-pointer w-[40px] text-center bg-slate-800/[0.015] p-2 rounded"
                                         @click="updateQuantity(1)">+</p>
@@ -138,7 +138,7 @@
                                 <div class="flex items-center flex-row">
                                     <p class="text-xl">Total : $
                                         <span id="total">
-                                            {{ totalPrice.toLocaleString() }}
+                                            {{ totalPrice.toLocaleString() }}.00
                                         </span>
                                     </p>
                                 </div>
@@ -147,15 +147,16 @@
                                         class="sm:text-base text-sm sm:p-4 p-0 text-[#FF385C] py-[13.5px] border-2 border-[#FF385C] w-full p-2 hover:bg-[#FF385C] hover:text-white transition duration-300 ease-in-out"
                                         @click="cartData"><i class="fa-solid fa-cart-shopping mx-2"></i> Tambah ke
                                         keranjang</button>
-                                    <NuxtLink :to="'/product/book/' + dataProduct.id" class="w-full"><button
+                                    <NuxtLink :to="'/product/cart/' + dataProduct.id" class="w-full"><button
                                             class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-[#FF385C] w-full p-2">
-                                            Beli
+                                            Bayar
                                             Sekarang
                                         </button>
                                     </NuxtLink>
                                     <button
                                         class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-pink-500 p-2 md:block hidden md:w-[120px]">
                                         <i class="fa-regular fa-lg fa-heart mx-1"></i></button>
+                                        <!-- <button @click="removestorage">Remove Storage</button> -->
                                 </div>
                             </div>
                         </div>
@@ -169,8 +170,6 @@
 <script>
 
 import axios from 'axios'
-
-import { mapMutations } from 'vuex';
 
 export default {
     data() {
@@ -201,68 +200,41 @@ export default {
         window.addEventListener("scroll", this.handlescroll);
     },
     methods: {
-        ...mapMutations(['setdatacart']),
         async cartData() {
-            if (this.$store.state.dataCart.length == 0) {
-                const query = "https://dummyjson.com/carts/add";
-                const requestData = {
-                    userId: 1,
-                    products: [
-                        {
-                            id: this.dataProduct.id,
-                            quantity: this.quantity,
-                        },
-                    ],
-                };
+            alert('Produk ditambahkan kedalam keranjang')
+            if (!localStorage.getItem('products')) {
+                const products = [
+                    {
+                        id: this.dataProduct.id,
+                        quantity: this.quantity
+                    }
+                ];
 
-                try {
-                    const response = await axios.post(query, requestData, {
-                        headers: { 'Content-Type': 'application/json' },
-                    });
-                    this.cart = response
-                    alert("Produk ditambahkan kedalam keranjang");
-                    console.log(response);
-                    this.setdatacart(this.cart.data)
-
-                } catch (error) {
-                    console.log(error);
-                }
+                const jsonProduct = JSON.stringify(products);
+                localStorage.setItem('products', jsonProduct)
+                alert("Produk ditambahkan kedalam keranjang")
             }
             else {
-                console.log("runnin else")
-                const query = "https://dummyjson.com/carts/add";
-                const requestData = {
-                    userId: 1,
-                    products: [
-                        {
-                            id: this.dataProduct.id,
-                            quantity: this.quantity,
-                        },
-                    ],
-                };
-                try {
-                    const response = await axios.post(query, requestData, {
-                        headers: { 'Content-Type': 'application/json' },
-                    });
-                    alert("Produk ditambahkan kedalam keranjang");
-                    console.log(response);
+                const products_decode = JSON.parse(localStorage.getItem('products'));
 
-                    this.cart = response
-                    this.cart.data.products = this.$store.state.dataCart.products.concat(response.data.products)
-                    
-                    this.cart.data.products.forEach((product) => {
-                        this.totalProducts += 1
-                        this.totalQuantity += product.quantity;
-                        this.totalPrice += product.discountedPrice;
-                    });
-                    this.cart.data.total = this.totalPrice
-                    this.cart.data.totalQuantity = this.totalQuantity
-                    this.cart.data.totalProducts = this.totalProducts
-                    this.setdatacart(this.cart.data)
-
-                } catch (error) {
-                    console.log(error);
+                const productExists = products_decode.find(product => product.id === this.dataProduct.id);
+                if (productExists) {
+                    products_decode.forEach((product) => {
+                        if (product.id === this.dataProduct.id) {
+                            product.quantity += this.quantity
+                            console.log(product.id)
+                            console.log(this.dataProduct.id)
+                        }
+                    })
                 }
+                else {
+                    const id = this.dataProduct.id;
+                    const quantity = this.quantity;
+                    products_decode.push({id,quantity})
+                }
+                console.log(products_decode)
+                const jsonProduct = JSON.stringify(products_decode);
+                    localStorage.setItem('products', jsonProduct)
             }
         },
         async getProductData() {
@@ -272,8 +244,8 @@ export default {
                 const res = await axios.get("https://dummyjson.com/products/" + id);
                 this.dataProduct = await res.data;
                 this.initstore()
+                this.calculatePrice();
             } catch (error) {
-                console.log(res);
                 console.log(error);
             }
         },
@@ -313,10 +285,13 @@ export default {
             const url = window.location.href;
             navigator.clipboard.writeText(url);
             alert("Link Copied")
-        }
+        },
+        // removestorage(){
+        //     localStorage.removeItem('products')
+        // }
     },
     mounted() {
-        this.calculatePrice();
+
     },
 }
 </script>

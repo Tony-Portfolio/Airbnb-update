@@ -10,7 +10,8 @@
                 </div>
             </div>
         </div>
-        <div class=" md:mx-auto md:my-4 md:my-14 flex flex-col md:gap-16 md:w-9/12 w-full px-4 md:px-14 md:px-0 my-16">
+        <div
+            class=" md:mx-auto md:my-4 md:my-14 flex flex-col md:gap-16 md:w-11/12 lg:w-10/12 w-full px-4 md:px-14 md:px-0 my-16">
             <div
                 class="w-full flex items-center justify-center text-center md:relative fixed top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20]">
                 <h4
@@ -49,18 +50,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="md:flex flex-col gap-6 w-full hidden">
-                        <h4 class="font-[500] text-2xl">Detail Pemesanan</h4>
-                        <div class="flex flex-col gap-1 relative w-full" v-for="items in this.$store.state.dataCart.products">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Produk</h5>
-                            <p class="font-[400] text-[15px] text-black">{{ items.title }}  ${{ items.discountedPrice }}.00</p>
-                            <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
-                                Edit</p>
-                        </div>
-                    </div>
                     <hr class="border-[0.5px] border-black/[0.05] w-full">
                     <div class="w-full flex flex-col gap-6">
-                        <h4 class="font-[500] text-2xl">Masuk ke akun atau daftar untuk memesan</h4>
+                        <h4 class="font-[500] text-2xl">Masuk ke akun atau daftar untuk pembayaran</h4>
                         <div class="">
                             <div class="w-full relative">
                                 <select name="" id=""
@@ -353,67 +345,32 @@
                     </div>
                 </div>
                 <div
-                    class="md:p-6 md:border-[1px] md:border-black/[0.1] rounded-lg flex flex-col gap-6 w-full md:max-w-[500px] md:sticky top-[20px]">
-                    <div class="">
-                        <div class="flex items-start justify-start gap-2">
-                            <div class="">
-                                <img :src="dataProduct.thumbnail" alt=""
-                                    class="w-[150px] h-[120px] rounded-lg object-cover">
-                            </div>
-                            <div class="flex justify-between flex-col h-[120px] text-left md:text-left">
-                                <div>
-                                    <h4>{{ dataProduct.title }}</h4>
-                                    <span class="text-[12px] font-[400] text-black/[0.8]">{{ dataProduct.brand }} - {{
-                                        dataProduct.category }}</span>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="flex items-center gap-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                        </svg>
-                                        <p class="text-[13px]">{{ dataProduct.rating }}</p>
-                                    </div>
-                                    <i class="fa-solid fa-circle text-[3px]"></i>
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-medal text-[10px]"></i>
-                                        <p class="text-[12px]">Hos Teladan</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <hr>
-                    <div class="flex flex-col gap-6 w-full md:hidden">
-                        <h4 class="font-[500] text-2xl">Detail Pemesanan</h4>
-                        <div class="flex flex-col gap-1 relative w-full">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Produk</h5>
-                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.title }}</p>
-                            <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
-                                Edit</p>
-                        </div>
-                        <div class="flex flex-col gap-2 relative w-full">
-                            <h5 class="font-[600] text-[16px] text-black/[0.8]">Brand</h5>
-                            <p class="font-[400] text-[15px] text-black">{{ dataProduct.brand }}</p>
-                            <p class="absolute top-[0%] translate-y-[-50%] right-[0px] font-[500] text-[16px] underline">
-                                Edit</p>
-                        </div>
-                    </div>
-                    <hr>
+                    class="md:p-6 md:border-[1px] md:border-black/[0.1] rounded-lg flex flex-col gap-6 w-full md:max-w-[700px] md:sticky top-[20px]">
                     <div class="flex flex-col gap-6">
-                        <h4 class="font-[600] text-xl text-black/[0.8] text-left">Perincian harga</h4>
-                        <div class=" flex items-center justify-between">
-                            <p>$. {{ (dataProduct.price * 1).toLocaleString() }}.00</p>
-                            <p>$. {{ (dataProduct.price * 1).toLocaleString() }}.00</p>
+                        <h4 class="font-[600] text-xl text-black/[0.8] text-left">Detail pemesanan & Perincian harga</h4>
+                        <div class=" flex items-end justify-between relative" v-for="items in cart.products"
+                            :key="items.id">
+                            <div class="flex gap-1">
+                                <div class="">
+                                    <img :src="getImg(items.id)" alt="" class = "w-[100px] h-[70px] object-cover object-top">
+                                </div>
+                                <div class="">
+                                    <h4 class="font-bold text-[16px]">{{ items.title }}</h4>
+                                    <p class="font-[500] text-[15px]">$.{{ (items.price * 1).toLocaleString() }}.00 x {{
+                                        items.quantity }}</p>
+                                </div>
+                            </div>
+                            <p class="absolute top-0 right-[0px] font-[500] text-[16px] underline text-red-500 cursor-pointer"
+                                @click="removeCartData(items.id)">
+                                Hapus</p>
+                            <p class="font-[500] text-[15px]">$. {{ (items.total * 1).toLocaleString() }}.00</p>
                         </div>
                     </div>
                     <hr>
                     <div class="">
                         <div class="font-[13px] font-[600] flex items-center justify-between text-black/[0.8]">
-                            <h4>Total (<span class="underline">IDR</span>)</h4>
-                            <p>$. {{ (dataProduct.price * 1).toLocaleString() }}.00</p>
+                            <h4>Total (<span class="underline">USD</span>)</h4>
+                            <p>$. {{ (cart.total * 1).toLocaleString() }}.00</p>
                         </div>
                     </div>
                 </div>
@@ -464,7 +421,8 @@ export default {
             },
             dataProduct: [],
             quantity: 0,
-            dataq:null,
+            dataq: null,
+            cart: [],
         }
     },
     async created() {
@@ -476,14 +434,46 @@ export default {
         }
     },
     methods: {
-        async getProductData() {
-            const route = useRoute();
-            const id = route.params.id;
+        getImg(id) {
+            const product = this.dataProduct.products.find(item => item.id === id);
+            return product ? product.thumbnail : '';
+        },
+        removeCartData(id) {
+            if (!confirm('Yakin hapus produk dari keranjang ?'))
+                return false
+            console.log(id)
+            var cartData = JSON.parse(localStorage.getItem('products'));
+            cartData = cartData.filter(item => item.id !== id);
+            console.log(cartData)
+            localStorage.setItem('products', JSON.stringify(cartData))
+            this.getCartData();
+        },
+        async getCartData() {
+            const cartData = JSON.parse(localStorage.getItem('products'));
+            console.log(cartData)
+            cartData.sort((a, b) => a.id - b.id);
+            const query = "https://dummyjson.com/carts/add";
+            const requestData = {
+                userId: 1,
+                products: cartData
+            };
             try {
-                const res = await axios.get("https://dummyjson.com/products/" + id);
-                this.dataProduct = await res.data;
+                const response = await axios.post(query, requestData, {
+                    headers: { 'Content-Type': 'application/json' },
+                });
+                this.cart = response.data
+                console.log(this.cart.products)
+
             } catch (error) {
-                console.log(res);
+                console.log(error);
+            }
+        },
+        async getProductData() {
+            try {
+                const res = await axios.get("https://dummyjson.com/products?select=thumbnail&limit=100");
+                this.dataProduct = await res.data;
+                console.log(this.dataProduct)
+            } catch (error) {
                 console.log(error);
             }
         },
@@ -491,8 +481,8 @@ export default {
             this.quantity = input;
         },
     },
-    mounted(){
-        console.log(this.$store.state.dataCard)
+    mounted() {
+        this.getCartData();
     }
 }
 </script>
