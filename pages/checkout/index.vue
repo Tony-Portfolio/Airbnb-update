@@ -11,9 +11,9 @@
     <div class="w-full max-w-[1000px] mx-auto my-4">
         <div class="flex items-start justify-start flex-col gap-8 mx-8">
             <div
-                class="w-full flex items-center justify-center text-center md:relative sticky top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20]">
+                class="w-full flex items-center justify-center text-center md:relative sticky top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20] mx-4">
                 <h4
-                    class="font-[500] text-lg md:text-3xl flex justify-center md:justify-start items-center gap-2 relative md:text-left text-center w-full block">
+                    class="font-[500] text-lg md:text-2xl flex justify-center md:justify-start items-center gap-2 relative md:text-left text-center w-full block">
                     Checkout
                     <NuxtLink :to="'/product/cart/'">
                         <span class="absolute top-[50%] translate-y-[-50%] left-[10px] md:left-[-40px] z-[40]"><svg
@@ -60,6 +60,12 @@
                     Hapus</p>
                 <p class="font-[500] text-[15px] whitespace-nowrap">$. {{ (items.total * 1).toLocaleString()
                 }}.00</p>
+            </div>
+            <div class="w-full">
+                <div class="font-[13px] font-[600] flex items-center justify-between w-full text-black/[0.8]">
+                    <h4>Total (<span class="underline">USD</span>)</h4>
+                    <p>$. {{ (cart.total * 1).toLocaleString() }}.00</p>
+                </div>
             </div>
             <hr class="border-[0.5px] border-black/[0.05] w-full">
             <div class="w-full flex flex-col gap-6">
