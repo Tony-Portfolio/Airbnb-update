@@ -98,7 +98,7 @@
                 </div>
             </footer>
         </div>
-        <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out hidden" :class="{ 'block': !isUserLogin }">
+        <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out" :class="{ 'block': !isUserLogin,'hidden': isUserLogin }">
             <div class="relative w-full h-full flex items-center justify-center">
                 <div class="absolute top-0 left-0 w-full h-full bg-black/[0.8] z-[31]"></div>
                 <div class="bg-white p-4 rounded-lg z-[32] w-[350px] mx-4">
