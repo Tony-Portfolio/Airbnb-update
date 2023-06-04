@@ -1,5 +1,5 @@
 <template>
-    <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded"><NuxtLink to="/product/cart/2" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount }})</NuxtLink></p>
+    <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded"><NuxtLink to="/product/cart/" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount }})</NuxtLink></p>
     <nav class="w-full max-w-[1100px] mx-auto flex flex-col gap-4 md:block hidden">
         <div class="flex items-center justify-between py-4 md:mx-9">
             <div class="">
@@ -45,7 +45,6 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <p class = "bg-[#FF385C] p-2 text-white rounded"><NuxtLink to="/product/cart/2"><i class="fa-solid fa-cart-shopping"></i> Keranjang : {{ cartCount }}</NuxtLink></p>
                 <div class="flex items-center p-1 border-[1px] border-black/[0.1] rounded-full gap-1 relative">
                     <div class="flex items-center gap-1" @click="dropdownmenu = !dropdownmenu">
                         <div class="mx-2">
@@ -58,15 +57,14 @@
                     </div>
                     <div class="absolute bg-white top-[100%] left-[-215%] py-2 w-[240px] z-[200] shadow-lg rounded-lg flex flex-col gap-3"
                         v-show="dropdownmenu" @click="dropdownmenu = !dropdownmenu">
-                        <div class="">
-                            <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Daftar</p>
-                            <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Masuk</p>
+                        <div :class="{ hidden: islogged }">
+                            <NuxtLink to="/register"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Daftar</p></NuxtLink>
+                            <NuxtLink to="/login"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Masuk</p></NuxtLink>
                         </div>
-                        <hr>
-                        <div class="">
-                            <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Jadikan rumah Anda
-                                Airbnb</p>
-                            <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Bantuan</p>
+                        <div :class="{ hidden: !islogged }">
+                            <NuxtLink to="/product/cart"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Keranjang ({{ cartCount }})</p></NuxtLink>
+                            <hr>
+                            <NuxtLink to="/logout"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Logout</p></NuxtLink>
                         </div>
                     </div>
                 </div>
@@ -86,7 +84,8 @@ export default {
             dropdownmenu: false,
             search: "",
             dataProduct: [],
-            cartCount:0
+            cartCount:0,
+            islogged : false
         }
     },
     methods: {
@@ -117,10 +116,29 @@ export default {
                 console.log(error);
             }
         },
+        getProductQuantity() {
+            if (localStorage.getItem("login")) {
+                const isUserLogin = JSON.parse(localStorage.getItem("login"));
+                const userLoginName = isUserLogin[0].username;
+                let userCart = JSON.parse(localStorage.getItem(userLoginName));
+                if (!userCart || !userCart.products) {
+                    userCart = { products: [] };
+                }
+                var totalQuantity = 0
+                userCart.products.forEach((product) => {
+                    totalQuantity += product.quantity
+                })
+                this.cartCount = totalQuantity
+            }
+        }
     },
     mounted() {
-        this.cartCount = JSON.parse(localStorage.getItem('products')).length
+        this.getProductQuantity();
         this.dataExist();
+        const isUserLogin = JSON.parse(localStorage.getItem("login"))
+        if(isUserLogin){
+            this.islogged = isUserLogin[0].isloggedin;
+        }
     }
 }
 </script>

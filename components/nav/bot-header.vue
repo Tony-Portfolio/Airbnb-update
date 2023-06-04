@@ -23,9 +23,18 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
                     </div> -->
                 <ul
                     class="navigation flex gap-2 gap-x-8 flex-nowrap font-[500] text-black/[0.6] text-[13px] overflow-x-auto text-center whitespace-nowrap">
-                    <NuxtLink :to="'/product/category/' + items" v-for="items in data" :key="items.id">
+                    <NuxtLink :to="'/'">
                         <li class="py-1 relative group" :class="{ active: isActive === 1 }">
                             <i class="fa-solid fa-sort-down"></i>
+                            <p class="py-2">Semua</p>
+                            <div
+                                class="absolute bottom-0 left-0 w-full border-[1px] border-black/[0.1] opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
+                            </div>
+                        </li>
+                    </NuxtLink>
+                    <NuxtLink :to="'/product/category/' + items" v-for="items in data" :key="items.id">
+                        <li class="py-1 relative group" :class="{ active: isActive === 1 }">
+                            <img :src="'/icons/' + items + '.png'" alt="" class = "w-[28px] h-[25px] mx-auto object-cover">
                             <p class="py-2">{{ items }}</p>
                             <div
                                 class="absolute bottom-0 left-0 w-full border-[1px] border-black/[0.1] opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
@@ -55,7 +64,7 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
             </div> -->
         </div>
     </div>
-    <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded md:hidden block "><NuxtLink to="/product/cart/2" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount }})</NuxtLink></p>
+    <!-- <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded md:hidden block "><NuxtLink to="/product/cart/" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount }})</NuxtLink></p> -->
 </template>
 <script>
 
@@ -70,8 +79,20 @@ export default {
             return parseInt(this.$route.params.id);
         }
     },
+    methods:{
+        getProductQuantity(){
+            if(!localStorage.getItem('products'))
+            return false;
+            const product = JSON.parse(localStorage.getItem('products')) || [];
+            var totalQuantity = 0
+            product.forEach((product)=>{
+                totalQuantity += product.quantity
+            })
+            this.cartCount = totalQuantity
+        }
+    },
     mounted(){
-        this.cartCount = JSON.parse(localStorage.getItem('products')).length
+        this.getProductQuantity();
     }
 }
 </script>
