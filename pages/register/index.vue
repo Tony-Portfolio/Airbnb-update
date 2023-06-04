@@ -10,7 +10,7 @@
                                 to="/login" class="font-bold text-[#FF385C] bg-white rounded p-[2px]">Masuk
                                 disini</NuxtLink>
                         </p>
-                        <img src="assets/Web/logo small no bg.png" alt=""
+                        <img src="/images/airbnb-logo.png" alt=""
                             class="w-7/12 block m-auto my-10 sm:bg-transparent sm:rounded-none">
                         <div class="flex flex-col justify-center gap-4">
                             <div class="">
