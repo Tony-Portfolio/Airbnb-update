@@ -1,26 +1,9 @@
 <template>
     <div class="">
-        <div class="items-center justify-between absolute top-0 left-0 w-full p-4 md:hidden flex z-[20]">
-            <div class="">
-                <NuxtLink to="/">
-                    <div
-                        class="w-[35px] h-[35px] shadow-md flex items-center justify-center rounded-full bg-white border-[1px] border-black/[0.1]">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </div>
-                </NuxtLink>
-            </div>
-            <div class="flex items-center gap-4">
-                <div class="w-[35px] h-[35px] shadow-md flex items-center justify-center rounded-full bg-white border-[1px] border-black/[0.1]"
-                    @click="share">
-                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                </div>
-                <div
-                    class="w-[35px] h-[35px] shadow-md flex items-center justify-center rounded-full bg-white border-[1px] border-black/[0.1]">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-            </div>
+        <div :key="updateComponents">
+            <NavMidHeader />
         </div>
-        <DetailsNavSearch />
+
         <main class="w-full max-w-[1100px] md:mx-auto mx-0" v-if="dataProduct" :key="dataProduct.id">
             <section class="md:my-0 md:mx-4 md:p-4 md:p-0">
                 <div class="flex items-center gap-4 md:flex hidden w-full justify-between p-4">
@@ -109,7 +92,7 @@
                                     </svg>
                                     {{ dataProduct.rating }}</span>
                             </h3>
-                            <h3 class="font-[600] text-xl md:block hidden">{{ dataProduct.title }}</h3>
+                            <h3 class="font-[600] text-xl">{{ dataProduct.title }}</h3>
                             <p class="my-2 my-4 text-lg font-[500]">
                                 {{ dataProduct.description }}
                             </p>
@@ -137,18 +120,16 @@
                             <!-- <p>Brands : </p> -->
                         </div>
                         <hr class="my-8 w-full md:hidden block">
-                        <div class="md:shadow-lg md:p-4 p-0 md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px]">
+                        <div
+                            class="md:shadow-lg md:p-4 p-0 md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px]">
                             <div class="rounded font-bold flex flex-col gap-4 md:gap-0">
-                                <div class="flex flex-col">
-                                    <h3 class="font-[600] text-[16px]">{{ dataProduct.title }}</h3>
-                                    <p class="text-xl"><span class="text-lg">$</span>
-                                        {{ (dataProduct.price * 1).toLocaleString() }}.00
-                                    </p>
+                                <div class="p-2">
+                                    <h3 class = "text-[18px]">{{ dataProduct.title }}</h3>
+                                    <p class = "font-[500] text-black/[0.8] text-[16px]">${{ dataProduct.price }}.00</p>
                                 </div>
-                                <hr class = "my-4 md:block hidden">
+                                <hr class="my-4 md:block hidden">
                                 <div class="flex flex-col gap-2">
-                                    <label for="quantity"
-                                        class="text-[14px] font-[500] text-black/[0.8]">Quantity</label>
+                                    <label for="quantity" class="text-[14px] font-[500] text-black/[0.8]">Quantity</label>
                                     <div class="flex items-center w-full md:w-[350px]">
                                         <p class="text-xl font-bold text-[#FF385C] cursor-pointer w-[40px] text-center bg-slate-800/[0.015] p-2 rounded"
                                             @click="updateQuantity(-1)">-</p>
@@ -159,7 +140,7 @@
                                             @click="updateQuantity(1)">+</p>
                                     </div>
                                 </div>
-                                <hr class = "my-4 md:block hidden">
+                                <hr class="my-4 md:block hidden">
                                 <div class="flex items-center flex-row">
                                     <p class="text-xl">Total : $
                                         <span id="total">
@@ -172,12 +153,9 @@
                                         class="sm:text-base text-sm sm:p-3 p-0 text-[#FF385C] py-[13.5px] border-2 border-[#FF385C] w-full p-2 hover:bg-[#FF385C] hover:text-white transition duration-300 ease-in-out"
                                         @click="cartData"><i class="fa-solid fa-cart-shopping mx-2"></i> Tambah ke
                                         keranjang</button>
-                                    <NuxtLink to="/product/cart/" class="w-full"><button
-                                            class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-[#FF385C] w-full p-2">
-                                            Bayar
-                                            Sekarang
-                                        </button>
-                                    </NuxtLink>
+                                    <!-- <NuxtLink to="/product/cart/" class="w-full"><button
+                                            class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-[#FF385C] w-full p-2" @click="cartData"> Bayar Sekarang </button>
+                                    </NuxtLink> -->
                                     <!-- <button @click="removestorage">Remove Storage</button> -->
                                 </div>
                             </div>
@@ -263,12 +241,14 @@
             </div>
         </div>
         <NuxtLayout :name="layouts.footer"></NuxtLayout>
-        <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out" :class="{'hidden': isUserLogin}">
+        <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out" :class="{ 'hidden': isUserLogin }">
             <div class="relative w-full h-full flex items-center justify-center">
                 <div class="absolute top-0 left-0 w-full h-full bg-black/[0.8] z-[31]"></div>
                 <div class="bg-white p-4 rounded-lg z-[32] w-[350px] mx-4">
-                    <img src="/access.gif" alt="" class = "mx-auto">
-                    <h4 class = "font-[500] text-base text-center my-4">Akses ditolak. Harap masuk ke akun anda <NuxtLink to="/login"><span class = "text-[#FF385C] underline">Masuk</span></NuxtLink></h4>
+                    <img src="/access.gif" alt="" class="mx-auto">
+                    <h4 class="font-[500] text-base text-center my-4">Akses ditolak. Harap masuk ke akun anda <NuxtLink
+                            to="/login"><span class="text-[#FF385C] underline">Masuk</span></NuxtLink>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -298,7 +278,8 @@ export default {
             totalPrice: 0,
             totalProducts: 0,
             cartNotif: false,
-            isUserLogin:true
+            isUserLogin: true,
+            updateComponents: 0
         }
     },
 
@@ -309,10 +290,13 @@ export default {
         window.addEventListener("scroll", this.handlescroll);
     },
     methods: {
-        isUserLog(){
+        refreshComponents() {
+            this.updateComponents++;
+        },
+        isUserLog() {
             const isUserLogin = JSON.parse(localStorage.getItem("login"))
             this.isUserLogin = isUserLogin
-            if(!isUserLogin){
+            if (!isUserLogin) {
                 return false
             }
         },
@@ -332,6 +316,7 @@ export default {
             }
         },
         async cartData() {
+            this.refreshComponents();
             this.isUserLog();
             this.closeCartPopUp();
             const isUserLogin = JSON.parse(localStorage.getItem("login"));
@@ -452,4 +437,5 @@ export default {
 
 .swiper-pagination-bullet-active {
     opacity: 1;
-}</style>
+}
+</style>

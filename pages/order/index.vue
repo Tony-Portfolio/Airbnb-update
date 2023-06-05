@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <DetailsNavSearch />
+        <NavMidHeader />
         <div class="w-full">
             <div class="w-full max-w-[1100px] mx-auto p-4 min-h-screen">
                 <div
@@ -40,7 +40,7 @@
                                 <p>Total : ${{ product.total }}.00</p>
                             </div>
                             <hr class="my-4">
-                            <p>Total Checkout : ${{ items.checkout_items.total }}.00</p>
+                            <p>Total Checkout : ${{ items.checkout_items.total.toLocaleString() }}.00</p>
                         </div>
 
                     </div>
@@ -86,6 +86,7 @@ export default {
             const userLoginName = isUserLogin[0].username;
             let userData = JSON.parse(localStorage.getItem(userLoginName));
             this.userData = userData[0];
+            this.userData.checkout = this.userData.checkout.reverse();
         },
         // getImg(id) {
         //     const product = this.dataProduct.products.find(item => item.id === id);

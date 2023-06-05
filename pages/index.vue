@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <NuxtLayout :name="layouts.header" @inputSubmitted="handleInput"></NuxtLayout>
+        <NuxtLayout :name="layouts.header"></NuxtLayout>
 
         <NuxtLayout :name="layouts.container">
             <section class="my-2">
@@ -50,10 +50,6 @@ export default {
         }
     },
     methods: {
-        handleInput(input) {
-            this.displayedInput = input;
-            this.getProductData();
-        },
         fixGridDataLoaded(){
             if(this.dataProduct.length > 3){
                 return 'grid-cols-[repeat(auto-fit,minmax(280px,1fr))]';

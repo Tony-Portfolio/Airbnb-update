@@ -11,10 +11,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'hero-pattern': "linear-gradient(to bottom, rgba(255,56,92,0.6),rgba(0,0,0,0.4),rgba(0,0,0,0.0)), url('/images/login.jpeg')",
-        'no-pattern': "linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,1))"
-      },
     },
   },
   plugins: [],

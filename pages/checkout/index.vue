@@ -1,14 +1,6 @@
 <template>
-    <div class="w-12/12 mx-auto flex-col gap-4 px-6 py-3 border-b-[1px] border-black/[0.1] hidden md:flex">
-        <div class="flex items-center py-4">
-            <div class="flex-1">
-                <NuxtLink to="/">
-                    <img src="/images/airbnb-logo.png" alt="" class="w-[100px] shrink">
-                </NuxtLink>
-            </div>
-        </div>
-    </div>
-    <div class="w-full max-w-[1000px] mx-auto my-4 min-h-screen">
+    <NavMidHeader />
+    <div class="w-full max-w-[1200px] mx-auto my-4 min-h-screen">
         <div class="flex items-start justify-start flex-col gap-8 mx-4">
             <div
                 class="w-full flex items-center justify-center text-center md:relative sticky top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20]">
@@ -44,64 +36,73 @@
                     </svg>
                 </div>
             </div>
-            <div class=" flex items-end justify-between relative w-full" v-for="items in cart.products" :key="items.id">
-                <div class="flex gap-2">
-                    <div class="">
-                        <img :src="getImg(items.id)" alt="" class="w-[100px] h-[90px] object-cover object-top">
+            <div class="flex md:flex-row flex-col gap-8">
+                <div class="flex w-full md:w-[500px] flex-col my-4 gap-4">
+                    <div class="flex gap-4 flex-col" v-for="items in cart.products" :key="items.id">
+                        <div class="flex gap-4">
+                            <div class="w-[100px]">
+                                <img :src="getImg(items.id)" alt="" class="w-[100px] h-[100px] object-cover object-top">
+                            </div>
+                            <div class="flex gap-2 flex-grow">
+                                <div class="flex flex-col w-full">
+                                    <h4 class="font-bold text-[16px]">{{ items.title }}</h4>
+                                    <div class="flex items-center justify-between w-full">
+                                        <p class="font-[500] text-[15px]">$.{{ (items.price * 1).toLocaleString() }}.00 ({{
+                                            items.quantity }})</p>
+                                        <p class="font-[500] text-[15px] whitespace-nowrap">$. {{ (items.total *
+                                            1).toLocaleString()
+                                        }}.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex flex-col justify-between">
-                        <h4 class="font-bold text-[16px]">{{ items.title }}</h4>
-                        <p class="font-[500] text-[15px]">$.{{ (items.price * 1).toLocaleString() }}.00 x {{
-                            items.quantity }}</p>
+                    <div class="w-full">
+                        <div class="font-[13px] font-[600] flex items-center justify-between w-full text-black/[0.8]">
+                            <h4>Total (<span class="underline">USD</span>)</h4>
+                            <p>$. {{ (cart.total * 1).toLocaleString() }}.00</p>
+                        </div>
                     </div>
                 </div>
-                <p class="font-[500] text-[15px] whitespace-nowrap">$. {{ (items.total * 1).toLocaleString()
-                }}.00</p>
-            </div>
-            <div class="w-full">
-                <div class="font-[13px] font-[600] flex items-center justify-between w-full text-black/[0.8]">
-                    <h4>Total (<span class="underline">USD</span>)</h4>
-                    <p>$. {{ (cart.total * 1).toLocaleString() }}.00</p>
-                </div>
-            </div>
-            <hr class="border-[0.5px] border-black/[0.05] w-full">
-            <div class="w-full flex flex-col gap-6">
-                <div class="flex flex-col gap-4">
-                    <h4 class="font-[500] text-xl">Pilih metode pembayaran</h4>
-                    <div class="w-full relative">
-                        <select name="payment_method" id="payment_method"
-                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_method">
-                            <option value="COD" selected="selected">Cash On Delivery (COD)</option>
-                            <option value="Kartu Kredit">Kartu kredit</option>
+                <hr class="md:hidden block">
+                <div class="w-full flex flex-col gap-6">
+                    <div class="flex flex-col gap-4">
+                        <h4 class="font-[500] text-xl">Pilih metode pembayaran</h4>
+                        <div class="w-full relative">
+                            <select name="payment_method" id="payment_method"
+                                class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_method">
+                                <option value="COD">Cash On Delivery (COD)</option>
+                                <option value="Kartu Kredit">Kartu kredit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <h4 class="font-[500] text-xl">Lokasi Pengiriman Barang</h4>
+                        <input type="text" class="w-full p-2 border-[1px] border-black/[0.1] rounded font-[400]"
+                            placeholder="Lokasi pengiriman" v-model="payment_location">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <h4 class="font-[500] text-xl">Kupon</h4>
+                        <select name="payment_coupon" id="payment_coupon"
+                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_coupon">
+                            <option value="Tidak ada kupon" selected="selected">Tidak ada kupon</option>
                         </select>
                     </div>
+                    <div class="flex flex-col gap-2">
+                        <h4 class="font-[500] text-xl">Metode Pengiriman</h4>
+                        <select name="delivery_method" id="delivery_method"
+                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="delivery_method">
+                            <option value="Pengiriman Instan">Pengiriman Instan</option>
+                            <option value="Pengiriman Reguler" selected="selected">Pengiriman Reguler</option>
+                        </select>
+                    </div>
+                    <p class="text-[13px]">Kami akan menelepon atau mengirim SMS guna mengonfirmasikan nomor Anda. Tarif
+                        standar SMS dan data
+                        berlaku. <span class="underline">Kebijakan Privasi</span></p>
+                    <button
+                        class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold"
+                        @click="checkout">Lanjutkan</button>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <h4 class="font-[500] text-xl">Lokasi Pengiriman Barang</h4>
-                    <input type="text" class="w-full p-2 border-[1px] border-black/[0.1] rounded font-[400]"
-                        placeholder="Lokasi pengiriman" v-model="payment_location">
-                </div>
-                <div class="flex flex-col gap-2">
-                    <h4 class="font-[500] text-xl">Kupon</h4>
-                    <select name="payment_coupon" id="payment_coupon"
-                        class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_coupon">
-                        <option value="Tidak ada kupon" selected="selected">Tidak ada kupon</option>
-                    </select>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <h4 class="font-[500] text-xl">Metode Pengiriman</h4>
-                    <select name="delivery_method" id="delivery_method"
-                        class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="delivery_method">
-                        <option value="Pengiriman Instan">Pengiriman Instan</option>
-                        <option value="Pengiriman Reguler" selected="selected">Pengiriman Reguler</option>
-                    </select>
-                </div>
-                <p class="text-[13px]">Kami akan menelepon atau mengirim SMS guna mengonfirmasikan nomor Anda. Tarif
-                    standar SMS dan data
-                    berlaku. <span class="underline">Kebijakan Privasi</span></p>
-                <button
-                    class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold"
-                    @click="checkout">Lanjutkan</button>
             </div>
         </div>
     </div>
@@ -150,10 +151,10 @@ export default {
             quantity: 0,
             dataq: null,
             cart: [],
-            payment_method: "",
+            payment_method: "COD",
             payment_location: "",
-            payment_coupon: "",
-            delivery_method: "",
+            payment_coupon: "Tidak ada kupon",
+            delivery_method: "Pengiriman Reguler",
             checkout_items: [],
         }
     },
@@ -162,7 +163,7 @@ export default {
     },
     methods: {
         checkout() {
-            if(this.payment_method == "" || this.payment_location == "" || this.delivery_method == ""){
+            if (this.payment_method == "" || this.payment_location == "" || this.delivery_method == "") {
                 alert("Tolong isi data yang kosong");
                 return false
             }

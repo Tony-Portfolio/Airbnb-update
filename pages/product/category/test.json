@@ -1,123 +1,161 @@
-[
-    {
-        "username": "raka",
-        "password": "123",
-        "telp": "555",
-        "products": [],
-        "checkout": [
-            {
-                "checkout_items": {
-                    "id": 21,
-                    "products": [
-                        {
-                            "id": 2,
-                            "title": "iPhone X",
-                            "price": 899,
-                            "quantity": 3,
-                            "total": 2697,
-                            "discountPercentage": 17.94,
-                            "discountedPrice": 2213
-                        }
-                    ],
-                    "total": 2697,
-                    "discountedTotal": 2213,
-                    "userId": 1,
-                    "totalProducts": 1,
-                    "totalQuantity": 3
-                },
-                "payment_method": "COD",
-                "payment_location": "Rumah",
-                "payment_coupon": "Tidak ada kupon",
-                "delivery_method": "Pengiriman Reguler",
-                "checkout_date": "5/6/2023 09.12.28"
+{
+    "username": "raka",
+    "password": "123",
+    "telp": "555",
+    "products": [
+        {
+            "id": 33,
+            "quantity": 2
+        }
+    ],
+    "checkout": [
+        {
+            "checkout_items": {
+                "id": 21,
+                "products": [
+                    {
+                        "id": 2,
+                        "title": "iPhone X",
+                        "price": 899,
+                        "quantity": 3,
+                        "total": 2697,
+                        "discountPercentage": 17.94,
+                        "discountedPrice": 2213
+                    }
+                ],
+                "total": 2697,
+                "discountedTotal": 2213,
+                "userId": 1,
+                "totalProducts": 1,
+                "totalQuantity": 3
             },
-            {
-                "checkout_items": {
-                    "id": 21,
-                    "products": [
-                        {
-                            "id": 1,
-                            "title": "iPhone 9",
-                            "price": 549,
-                            "quantity": 2,
-                            "total": 1098,
-                            "discountPercentage": 12.96,
-                            "discountedPrice": 956
-                        }
-                    ],
-                    "total": 1098,
-                    "discountedTotal": 956,
-                    "userId": 1,
-                    "totalProducts": 1,
-                    "totalQuantity": 2
-                },
-                "payment_method": "Kartu Kredit",
-                "payment_location": "Tidak ada",
-                "payment_coupon": "Tidak ada kupon",
-                "delivery_method": "Pengiriman Instan",
-                "checkout_date": "5/6/2023 09.12.49"
+            "payment_method": "COD",
+            "payment_location": "Rumah",
+            "payment_coupon": "Tidak ada kupon",
+            "delivery_method": "Pengiriman Reguler",
+            "checkout_date": "5/6/2023 09.12.28"
+        },
+        {
+            "checkout_items": {
+                "id": 21,
+                "products": [
+                    {
+                        "id": 1,
+                        "title": "iPhone 9",
+                        "price": 549,
+                        "quantity": 2,
+                        "total": 1098,
+                        "discountPercentage": 12.96,
+                        "discountedPrice": 956
+                    }
+                ],
+                "total": 1098,
+                "discountedTotal": 956,
+                "userId": 1,
+                "totalProducts": 1,
+                "totalQuantity": 2
             },
-            {
-                "checkout_items": {
-                    "id": 21,
-                    "products": [
-                        {
-                            "id": 2,
-                            "title": "iPhone X",
-                            "price": 899,
-                            "quantity": 5,
-                            "total": 4495,
-                            "discountPercentage": 17.94,
-                            "discountedPrice": 3689
-                        },
-                        {
-                            "id": 3,
-                            "title": "Samsung Universe 9",
-                            "price": 1249,
-                            "quantity": 4,
-                            "total": 4996,
-                            "discountPercentage": 15.46,
-                            "discountedPrice": 4224
-                        }
-                    ],
-                    "total": 9491,
-                    "discountedTotal": 7913,
-                    "userId": 1,
-                    "totalProducts": 2,
-                    "totalQuantity": 9
-                },
-                "payment_method": "COD",
-                "payment_location": "HEhe sini",
-                "payment_coupon": "Tidak ada kupon",
-                "delivery_method": "Pengiriman Instan",
-                "checkout_date": "5/6/2023 09.21.20"
+            "payment_method": "Kartu Kredit",
+            "payment_location": "Tidak ada",
+            "payment_coupon": "Tidak ada kupon",
+            "delivery_method": "Pengiriman Instan",
+            "checkout_date": "5/6/2023 09.12.49"
+        },
+        {
+            "checkout_items": {
+                "id": 21,
+                "products": [
+                    {
+                        "id": 2,
+                        "title": "iPhone X",
+                        "price": 899,
+                        "quantity": 5,
+                        "total": 4495,
+                        "discountPercentage": 17.94,
+                        "discountedPrice": 3689
+                    },
+                    {
+                        "id": 3,
+                        "title": "Samsung Universe 9",
+                        "price": 1249,
+                        "quantity": 4,
+                        "total": 4996,
+                        "discountPercentage": 15.46,
+                        "discountedPrice": 4224
+                    }
+                ],
+                "total": 9491,
+                "discountedTotal": 7913,
+                "userId": 1,
+                "totalProducts": 2,
+                "totalQuantity": 9
             },
-            {
-                "checkout_items": {
-                    "id": 21,
-                    "products": [
-                        {
-                            "id": 4,
-                            "title": "OPPOF19",
-                            "price": 280,
-                            "quantity": 4,
-                            "total": 1120,
-                            "discountPercentage": 17.91,
-                            "discountedPrice": 919
-                        }
-                    ],
-                    "total": 1120,
-                    "discountedTotal": 919,
-                    "userId": 1,
-                    "totalProducts": 1,
-                    "totalQuantity": 4
-                },
-                "payment_method": "",
-                "payment_location": "",
-                "payment_coupon": "",
-                "delivery_method": "",
-                "checkout_date": "5/6/2023 10.15.51"
-            }
-        ]
-    }
-]
+            "payment_method": "COD",
+            "payment_location": "HEhe sini",
+            "payment_coupon": "Tidak ada kupon",
+            "delivery_method": "Pengiriman Instan",
+            "checkout_date": "5/6/2023 09.21.20"
+        },
+        {
+            "checkout_items": {
+                "id": 21,
+                "products": [
+                    {
+                        "id": 4,
+                        "title": "OPPOF19",
+                        "price": 280,
+                        "quantity": 4,
+                        "total": 1120,
+                        "discountPercentage": 17.91,
+                        "discountedPrice": 919
+                    }
+                ],
+                "total": 1120,
+                "discountedTotal": 919,
+                "userId": 1,
+                "totalProducts": 1,
+                "totalQuantity": 4
+            },
+            "payment_method": "",
+            "payment_location": "",
+            "payment_coupon": "",
+            "delivery_method": "",
+            "checkout_date": "5/6/2023 10.15.51"
+        },
+        {
+            "checkout_items": {
+                "id": 21,
+                "products": [
+                    {
+                        "id": 1,
+                        "title": "iPhone 9",
+                        "price": 549,
+                        "quantity": 9,
+                        "total": 4941,
+                        "discountPercentage": 12.96,
+                        "discountedPrice": 4301
+                    },
+                    {
+                        "id": 5,
+                        "title": "Huawei P30",
+                        "price": 499,
+                        "quantity": 4,
+                        "total": 1996,
+                        "discountPercentage": 10.58,
+                        "discountedPrice": 1785
+                    }
+                ],
+                "total": 6937,
+                "discountedTotal": 6086,
+                "userId": 1,
+                "totalProducts": 2,
+                "totalQuantity": 13
+            },
+            "payment_method": "COD",
+            "payment_location": "Jl. Jiung",
+            "payment_coupon": "Tidak ada kupon",
+            "delivery_method": "Pengiriman Reguler",
+            "checkout_date": "5/6/2023 15.03.33"
+        }
+    ]
+}

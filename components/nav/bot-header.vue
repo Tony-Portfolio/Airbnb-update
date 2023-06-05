@@ -21,27 +21,45 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
                                 clip-rule="evenodd" />
                         </svg>
                     </div> -->
-                <ul
-                    class="navigation flex gap-2 gap-x-8 flex-nowrap font-[500] text-black/[0.6] text-[13px] overflow-x-auto text-center whitespace-nowrap">
-                    <NuxtLink :to="'/'">
-                        <li class="py-1 relative group" :class="{ active: isActive === 1 }">
-                            <img src="/icons/all.png" alt="" class = "w-[25px] h-[25px] mx-auto object-cover">
-                            <p class="py-2">Semua</p>
-                            <div
-                                class="absolute bottom-0 left-0 w-full border-[1px] border-black/[0.1] opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
-                            </div>
-                        </li>
-                    </NuxtLink>
-                    <NuxtLink :to="'/product/category/' + items" v-for="items in data" :key="items.id">
-                        <li class="py-1 relative group" :class="{ active: isActive === 1 }">
-                            <img :src="'/icons/' + items + '.png'" alt="" class = "w-[28px] h-[25px] mx-auto object-cover">
-                            <p class="py-2">{{ items }}</p>
-                            <div
-                                class="absolute bottom-0 left-0 w-full border-[1px] border-black/[0.1] opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
-                            </div>
-                        </li>
-                    </NuxtLink>
-                    <!-- <NuxtLink to="/search/2">
+                <div class="relative">
+                    <div class="absolute top-[50%] translate-y-[-50%] left-[-10px] md:left-0 w-[40px] h-[40px] shadow-md rounded-full flex items-center justify-center cursor-pointer"
+                        @click="scroll(-350)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd"
+                                d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="absolute top-[50%] translate-y-[-50%] right-[-10px] md:right-0 w-[40px] h-[40px] shadow-md rounded-full flex items-center justify-center cursor-pointer"
+                        @click="scroll(350)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd"
+                                d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <ul
+                        class="navigation flex gap-2 gap-x-8 flex-nowrap font-[500] text-black/[0.6] text-[13px] overflow-x-scroll text-center whitespace-nowrap scroll relative w-[80%] md:w-[90%] mx-auto transition duration-300 ease-in-out scroll-smooth">
+                        <NuxtLink :to="'/'">
+                            <li class="py-1 relative group" :class="{ active: isActive === 1 }">
+                                <img src="/icons/all.png" alt="" class="w-[25px] h-[25px] mx-auto object-cover">
+                                <p class="py-2">Semua</p>
+                                <div
+                                    class="absolute bottom-0 left-0 w-full border-[1px] border-black/[0.1] opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
+                                </div>
+                            </li>
+                        </NuxtLink>
+                        <NuxtLink :to="'/product/category/' + items" v-for="items in data" :key="items.id">
+                            <li class="py-1 relative group" :class="{ active: isActive(`/product/category/${items}`) }">
+                                <img :src="'/icons/' + items + '.png'" alt=""
+                                    class="w-[28px] h-[25px] mx-auto object-cover">
+                                <p class="py-2">{{ items }}</p>
+                                <div
+                                    class="absolute bottom-0 left-0 w-full border-[1px] border-black/[0.1] opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
+                                </div>
+                            </li>
+                        </NuxtLink>
+                        <!-- <NuxtLink to="/search/2">
                         <li class="py-1 relative group" :class="{ active: isActive === 2 }">
                             <img src="/icon/tropis.jpg" alt="" class="w-[20px] mx-auto grayscale-[100%]">
                             <p class="py-2">Tropis</p>
@@ -50,7 +68,8 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
                             </div>
                         </li>
                     </NuxtLink> -->
-                </ul>
+                    </ul>
+                </div>
             </div>
             <!-- <div class="">
                 <div
@@ -69,30 +88,43 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
 <script>
 
 export default {
-    data(){
-        return{
-            cartCount:0,
+    data() {
+        return {
         }
     },
     computed: {
-        isActive() {
-            return parseInt(this.$route.params.id);
-        }
+        currentRoute() {
+            const router = useRouter();
+            return router.currentRoute.value;
+        },
     },
-    methods:{
-        getProductQuantity(){
-            if(!localStorage.getItem('products'))
-            return false;
+    methods: {
+        scroll(scrollto) {
+            const scroll = document.querySelector('.scroll')
+            scroll.scrollLeft += scrollto
+        },
+        getProductQuantity() {
+            if (!localStorage.getItem('products'))
+                return false;
             const product = JSON.parse(localStorage.getItem('products')) || [];
             var totalQuantity = 0
-            product.forEach((product)=>{
+            product.forEach((product) => {
                 totalQuantity += product.quantity
             })
             this.cartCount = totalQuantity
+        },
+        isActive(route) {
+            return this.currentRoute.path === route
         }
     },
-    mounted(){
+    mounted() {
         this.getProductQuantity();
     }
 }
 </script>
+<style scoped>
+.scroll::-webkit-scrollbar {
+    scroll-behavior: smooth;
+    display: none;
+}
+</style>
