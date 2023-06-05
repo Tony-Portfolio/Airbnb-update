@@ -1,5 +1,8 @@
 <template>
-    <p class = "fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded"><NuxtLink to="/product/cart/" class = "flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount }})</NuxtLink></p>
+    <p class="fixed bottom-[20px] right-[20px] z-[10] bg-[#FF385C] p-2 text-white rounded md:hidden block">
+        <NuxtLink to="/product/cart/" class="flex gap-2 items-center"><i class="fa-solid fa-cart-shopping"></i>({{ cartCount
+        }})</NuxtLink>
+    </p>
     <nav class="w-full max-w-[1100px] mx-auto flex flex-col gap-4 md:block hidden">
         <div class="flex items-center justify-between py-4 md:mx-9">
             <div class="">
@@ -58,13 +61,27 @@
                     <div class="absolute bg-white top-[100%] left-[-215%] py-2 w-[240px] z-[200] shadow-lg rounded-lg flex flex-col gap-3"
                         v-show="dropdownmenu" @click="dropdownmenu = !dropdownmenu">
                         <div :class="{ hidden: islogged }">
-                            <NuxtLink to="/register"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Daftar</p></NuxtLink>
-                            <NuxtLink to="/login"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Masuk</p></NuxtLink>
+                            <NuxtLink to="/register">
+                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Daftar</p>
+                            </NuxtLink>
+                            <NuxtLink to="/login">
+                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Masuk</p>
+                            </NuxtLink>
                         </div>
                         <div :class="{ hidden: !islogged }">
-                            <NuxtLink to="/product/cart"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Keranjang ({{ cartCount }})</p></NuxtLink>
+                            <NuxtLink to="/order/">
+                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Pemesanan</p>
+                            </NuxtLink>
+                            <!-- <hr> -->
+                            <NuxtLink to="/product/cart">
+                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Keranjang (<span
+                                        class="text-[#FF385C]">{{
+                                            cartCount }}</span>)</p>
+                            </NuxtLink>
                             <hr>
-                            <NuxtLink to="/logout"><p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Logout</p></NuxtLink>
+                            <NuxtLink to="/logout">
+                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Logout</p>
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
@@ -84,12 +101,12 @@ export default {
             dropdownmenu: false,
             search: "",
             dataProduct: [],
-            cartCount:0,
-            islogged : false
+            cartCount: 0,
+            islogged: false
         }
     },
     methods: {
-        
+
 
         fixData() {
             if (this.search.length == 0) {
@@ -121,11 +138,11 @@ export default {
                 const isUserLogin = JSON.parse(localStorage.getItem("login"));
                 const userLoginName = isUserLogin[0].username;
                 let userCart = JSON.parse(localStorage.getItem(userLoginName));
-                if (!userCart || !userCart.products) {
+                if (!userCart[0] || !userCart[0].products) {
                     userCart = { products: [] };
                 }
                 var totalQuantity = 0
-                userCart.products.forEach((product) => {
+                userCart[0].products.forEach((product) => {
                     totalQuantity += product.quantity
                 })
                 this.cartCount = totalQuantity
@@ -136,7 +153,7 @@ export default {
         this.getProductQuantity();
         this.dataExist();
         const isUserLogin = JSON.parse(localStorage.getItem("login"))
-        if(isUserLogin){
+        if (isUserLogin) {
             this.islogged = isUserLogin[0].isloggedin;
         }
     }

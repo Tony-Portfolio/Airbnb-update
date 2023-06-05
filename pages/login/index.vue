@@ -83,12 +83,13 @@ export default {
             const jsonUserData = JSON.stringify(this.userData);
             const getUserData = JSON.parse(localStorage.getItem(username));
             if (getUserData) {
-                if (getUserData.password == password) {
+                if (getUserData[0].password == password) {
                     var isLogged = true
                     const loginData = [{isloggedin:true,username}]
                     localStorage.setItem("login", JSON.stringify(loginData));
                     window.location.href = "/"
                 }else{
+                    console.log(password, getUserData)
                     alert('username atau password salah!')
                 }
             } else {

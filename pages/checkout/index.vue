@@ -9,9 +9,9 @@
         </div>
     </div>
     <div class="w-full max-w-[1000px] mx-auto my-4">
-        <div class="flex items-start justify-start flex-col gap-8 mx-8">
+        <div class="flex items-start justify-start flex-col gap-8 mx-4">
             <div
-                class="w-full flex items-center justify-center text-center md:relative sticky top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20] mx-4">
+                class="w-full flex items-center justify-center text-center md:relative sticky top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20]">
                 <h4
                     class="font-[500] text-lg md:text-2xl flex justify-center md:justify-start items-center gap-2 relative md:text-left text-center w-full block">
                     Checkout
@@ -55,9 +55,6 @@
                             items.quantity }}</p>
                     </div>
                 </div>
-                <p class="absolute top-0 right-[0px] font-[500] text-[16px] underline text-red-500 cursor-pointer"
-                    @click="deletePopUp(items.id)">
-                    Hapus</p>
                 <p class="font-[500] text-[15px] whitespace-nowrap">$. {{ (items.total * 1).toLocaleString()
                 }}.00</p>
             </div>
@@ -72,35 +69,39 @@
                 <div class="flex flex-col gap-4">
                     <h4 class="font-[500] text-xl">Pilih metode pembayaran</h4>
                     <div class="w-full relative">
-                        <select name="" id="" class="border-[1px] border-black/[0.1] rounded p-2 w-full">
-                            <option value="">Cash On Delivery (COD)</option>
-                            <option value="">Kartu kredit</option>
+                        <select name="payment_method" id="payment_method"
+                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_method">
+                            <option value="COD" selected="selected">Cash On Delivery (COD)</option>
+                            <option value="Kartu Kredit">Kartu kredit</option>
                         </select>
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
                     <h4 class="font-[500] text-xl">Lokasi Pengiriman Barang</h4>
                     <input type="text" class="w-full p-2 border-[1px] border-black/[0.1] rounded font-[400]"
-                        placeholder="Lokasi pengiriman">
+                        placeholder="Lokasi pengiriman" v-model="payment_location">
                 </div>
                 <div class="flex flex-col gap-2">
                     <h4 class="font-[500] text-xl">Kupon</h4>
-                    <select name="" id="" class="border-[1px] border-black/[0.1] rounded p-2 w-full">
-                        <option value="">Tidak ada kupon</option>
+                    <select name="payment_coupon" id="payment_coupon"
+                        class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_coupon">
+                        <option value="Tidak ada kupon" selected="selected">Tidak ada kupon</option>
                     </select>
                 </div>
                 <div class="flex flex-col gap-2">
                     <h4 class="font-[500] text-xl">Metode Pengiriman</h4>
-                    <select name="" id="" class="border-[1px] border-black/[0.1] rounded p-2 w-full">
-                        <option value="">Pengiriman Instan</option>
-                        <option value="">Pengiriman Reguler</option>
+                    <select name="delivery_method" id="delivery_method"
+                        class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="delivery_method">
+                        <option value="Pengiriman Instan">Pengiriman Instan</option>
+                        <option value="Pengiriman Reguler" selected="selected">Pengiriman Reguler</option>
                     </select>
                 </div>
                 <p class="text-[13px]">Kami akan menelepon atau mengirim SMS guna mengonfirmasikan nomor Anda. Tarif
                     standar SMS dan data
                     berlaku. <span class="underline">Kebijakan Privasi</span></p>
                 <button
-                    class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold">Lanjutkan</button>
+                    class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold"
+                    @click="checkout">Lanjutkan</button>
             </div>
         </div>
     </div>
@@ -149,20 +150,67 @@ export default {
             quantity: 0,
             dataq: null,
             cart: [],
+            payment_method: "",
+            payment_location: "",
+            payment_coupon: "",
+            delivery_method: "",
+            checkout_items: [],
         }
     },
     async created() {
         this.getProductData();
     },
     methods: {
+        checkout() {
+            if(this.payment_method == "" || this.payment_location == "" || this.delivery_method == ""){
+                alert("Tolong isi data yang kosong");
+                return false
+            }
+            const isUserLogin = JSON.parse(localStorage.getItem("login"));
+            const userLoginName = isUserLogin[0].username;
+            let userCart = JSON.parse(localStorage.getItem(userLoginName));
+            if (!userCart || !userCart[0].products) {
+                userCart = { products: [] };
+            }
+            // remove item from cart
+            const checkoutArray = JSON.parse(localStorage.getItem("checkOut"));
+            const filteredProducts = userCart[0].products.filter(product => {
+                return !checkoutArray.some(item => item.id === product.id);
+            });
+            console.log(filteredProducts);
+            userCart[0].products = filteredProducts;
+            // add checkout data
+            const checkout_items = this.cart;
+            const payment_method = this.payment_method;
+            const payment_location = this.payment_location;
+            const payment_coupon = this.payment_coupon;
+            const delivery_method = this.delivery_method;
+            const currentDate = new Date();
+            const options = { timeZone: 'UTC' };
+            const formattedDate = currentDate.toLocaleString('id-ID', options);
+            const checkout = {
+                checkout_items: checkout_items,
+                payment_method: payment_method,
+                payment_location: payment_location,
+                payment_coupon: payment_coupon,
+                delivery_method: delivery_method,
+                checkout_date: formattedDate
+            }
+            userCart[0].checkout.push(checkout);
+            const jsonCart = JSON.stringify(userCart);
+            localStorage.setItem(userLoginName, jsonCart);
+            console.log(localStorage.getItem(userLoginName))
+            window.location.href = "/order/";
+            localStorage.removeItem("checkOut");
+        },
         async getCartData() {
-            let userCart = JSON.parse(localStorage.getItem("checkOut"));
-            userCart.sort((a, b) => a.id - b.id);
-            console.log(userCart)
+            let userCheckout = JSON.parse(localStorage.getItem("checkOut"));
+            userCheckout.sort((a, b) => a.id - b.id);
+            console.log(userCheckout)
             const query = "https://dummyjson.com/carts/add";
             const requestData = {
                 userId: 1,
-                products: userCart
+                products: userCheckout
             };
             console.log(requestData)
             try {
@@ -170,6 +218,7 @@ export default {
                     headers: { 'Content-Type': 'application/json' },
                 });
                 this.cart = response.data
+                console.log(this.cart)
             } catch (error) {
                 console.log(error);
             }

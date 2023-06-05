@@ -74,7 +74,8 @@ export default {
             telp: "",
             password: "",
             userData: [],
-            products: []
+            products: [],
+            checkout:[]
         }
     },
     computed: {
@@ -89,7 +90,8 @@ export default {
             const password = this.password;
             const telp = this.telp;
             const products = this.products;
-            this.userData.push({ username, password, telp, products })
+            const checkout = this.checkout;
+            this.userData.push({ username, password, telp, products, checkout })
             const jsonUserData = JSON.stringify(this.userData);
             localStorage.setItem(username, jsonUserData);
             console.log(localStorage.getItem(username));
@@ -100,5 +102,8 @@ export default {
     },
     async created() {
     },
+    mounted(){
+        // localStorage.clear();
+    }
 }
 </script>

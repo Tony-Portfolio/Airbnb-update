@@ -25,7 +25,7 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
                     class="navigation flex gap-2 gap-x-8 flex-nowrap font-[500] text-black/[0.6] text-[13px] overflow-x-auto text-center whitespace-nowrap">
                     <NuxtLink :to="'/'">
                         <li class="py-1 relative group" :class="{ active: isActive === 1 }">
-                            <i class="fa-solid fa-sort-down"></i>
+                            <img src="/icons/all.png" alt="" class = "w-[25px] h-[25px] mx-auto object-cover">
                             <p class="py-2">Semua</p>
                             <div
                                 class="absolute bottom-0 left-0 w-full border-[1px] border-black/[0.1] opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">

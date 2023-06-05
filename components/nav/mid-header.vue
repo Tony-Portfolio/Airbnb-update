@@ -47,9 +47,14 @@
                             </NuxtLink>
                         </div>
                         <div :class="{ hidden: !islogged }">
+                            <NuxtLink to="/order/">
+                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Pemesanan</p>
+                            </NuxtLink>
+                            <!-- <hr> -->
                             <NuxtLink to="/product/cart/">
-                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Keranjang ({{
-                                    cartCount }})</p>
+                                <p class="hover:bg-black/[0.03] py-3 text-[15px] px-4 cursor-pointer">Keranjang (<span
+                                        class="text-[#FF385C]">{{
+                                            cartCount }}</span>)</p>
                             </NuxtLink>
                             <hr>
                             <NuxtLink to="/logout">
@@ -83,11 +88,11 @@ export default {
                 const isUserLogin = JSON.parse(localStorage.getItem("login"));
                 const userLoginName = isUserLogin[0].username;
                 let userCart = JSON.parse(localStorage.getItem(userLoginName));
-                if (!userCart || !userCart.products) {
+                if (!userCart[0] || !userCart[0].products) {
                     userCart = { products: [] };
                 }
                 var totalQuantity = 0
-                userCart.products.forEach((product) => {
+                userCart[0].products.forEach((product) => {
                     totalQuantity += product.quantity
                 })
                 this.cartCount = totalQuantity

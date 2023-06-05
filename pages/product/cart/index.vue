@@ -60,10 +60,9 @@
                             <h4>Total (<span class="underline">USD</span>)</h4>
                             <p>$. {{ (cart.total * 1).toLocaleString() }}.00</p>
                         </div>
-                    </div>
-                    <NuxtLink to="/checkout/" class="w-full"><button
+                    </div><button
                             class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold"
-                            @click="dataCheckOut">Checkout</button></NuxtLink>
+                            @click="dataCheckOut">Checkout</button>
                 </div>
             </div>
         </div>
@@ -162,17 +161,22 @@ export default {
     },
     methods: {
         dataCheckOut() {
+            if(this.checkBoxes.length == 0){
+                alert("tolong pilih barang yang akan di checkout")
+                return false
+            }
             const isUserLogin = JSON.parse(localStorage.getItem("login"));
             const userLoginName = isUserLogin[0].username;
             let userCart = JSON.parse(localStorage.getItem(userLoginName));
-            if (!userCart || !userCart.products) {
+            if (!userCart || !userCart[0].products) {
                 userCart = { products: [] };
             }
-            this.checkOut = userCart.products.filter(item => this.checkBoxes.includes(item.id));
+            this.checkOut = userCart[0].products.filter(item => this.checkBoxes.includes(item.id));
             localStorage.removeItem('checkOut')
             const jsonCheckOut = JSON.stringify(this.checkOut)
             localStorage.setItem('checkOut', jsonCheckOut)
             console.log(this.checkOut);
+            window.location.href='/checkout/'
         },
         getImg(id) {
             const product = this.dataProduct.products.find(item => item.id === id);
@@ -187,10 +191,10 @@ export default {
                 const isUserLogin = JSON.parse(localStorage.getItem("login"));
                 const userLoginName = isUserLogin[0].username;
                 let userCart = JSON.parse(localStorage.getItem(userLoginName));
-                if (!userCart || !userCart.products) {
+                if (!userCart || !userCart[0].products) {
                     userCart = { products: [] };
                 }
-                userCart.products = userCart.products.filter(item => item.id !== id);
+                userCart[0].products = userCart[0].products.filter(item => item.id !== id);
                 const jsonCart = JSON.stringify(userCart)
                 localStorage.setItem(userLoginName, jsonCart)
                 this.getCartData();
@@ -201,14 +205,14 @@ export default {
             const isUserLogin = JSON.parse(localStorage.getItem("login"));
             const userLoginName = isUserLogin[0].username;
             let userCart = JSON.parse(localStorage.getItem(userLoginName));
-            if (!userCart || !userCart.products) {
+            if (!userCart || !userCart[0].products) {
                 userCart = { products: [] };
             }
-            userCart.products.sort((a, b) => a.id - b.id);
+            userCart[0].products.sort((a, b) => a.id - b.id);
             const query = "https://dummyjson.com/carts/add";
             const requestData = {
                 userId: 1,
-                products: userCart.products
+                products: userCart[0].products
             };
             try {
                 const response = await axios.post(query, requestData, {

@@ -1,29 +1,5 @@
 <template>
     <div class="">
-        <div class="border-b-[1px] border-black/[0.1] fixed top-0 left-0 w-full bg-white md:block hidden"
-            v-show="scrolltop">
-            <div class="w-full max-w-[1100px] mx-auto py-4 flex items-center justify-between">
-                <div class="md:mx-9 flex items-center justify-between ">
-                    <ul class="flex gap-7 text-[14px] font-[500]">
-                        <li>Foto</li>
-                        <li>Fasilitas</li>
-                        <li>Ulasan</li>
-                        <li>Lokasi</li>
-                    </ul>
-                    <div class="flex items-center gap-4 whitespace-nowrap opacity-0">
-                        <div class="flex flex-col">
-                            <h3 class="font-[15px] font-[500]">Rp. {{ dataProduct.price }}.00 <span
-                                    class="text-[13px] font-[400]">malam</span></h3>
-                            <p class="text-[11px] font-[500] text-black/[0.8] underline">1 ulasan</p>
-                        </div>
-                        <NuxtLink :to="'/product/cart/'">
-                            <button
-                                class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold">Pesan</button>
-                        </NuxtLink>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="items-center justify-between absolute top-0 left-0 w-full p-4 md:hidden flex z-[20]">
             <div class="">
                 <NuxtLink to="/">
@@ -363,19 +339,19 @@ export default {
             const userLoginName = isUserLogin[0].username;
             let userCart = JSON.parse(localStorage.getItem(userLoginName));
 
-            if (!userCart || !userCart.products) {
+            if (!userCart || !userCart[0].products) {
                 userCart = { products: [] };
             }
 
-            if (userCart.products.length === 0) {
+            if (userCart[0].products.length === 0) {
                 const product = {
                     id: this.dataProduct.id,
                     quantity: this.quantity
                 };
 
-                userCart.products.push(product);
+                userCart[0].products.push(product);
             } else {
-                const products_decode = userCart.products;
+                const products_decode = userCart[0].products;
 
                 const productExists = products_decode.find(product => product.id === this.dataProduct.id);
 
