@@ -2,11 +2,11 @@
     <div>
         <main class="w-full h-full">
             <section class="w-full h-full">
-                <div class="grid grid-cols-1 sm:grid-cols-2 w-full h-full">
+                <div class="flex items-center justify-center w-full h-full h-screen">
                     <div
-                        class="my-auto md:w-10/12 lg:w-9/12 xl:w-7/12 block md:m-auto h-screen p-8 bg-cover bg-center text-white sm:text-black bg-hero-pattern sm:bg-no-pattern relative">
+                        class="my-auto max-w-[500px] block md:m-auto p-8 bg-cover bg-center sm:text-black relative">
                         <h2 class="uppercase text-center font-bold text-2xl">Daftar untuk mulai berbelanja</h2>
-                        <p class="sm:text-black/[0.8] text-sm text-center text-white">Sudah punya akun? <NuxtLink
+                        <p class="sm:text-black/[0.8] text-sm text-center">Sudah punya akun? <NuxtLink
                                 to="/login" class="font-bold text-[#FF385C] bg-white rounded p-[2px]">Masuk
                                 disini</NuxtLink>
                         </p>
@@ -20,12 +20,6 @@
                                     id="username" name="username" v-model="username">
                             </div>
                             <div class="">
-                                <label for="telp" class="text-left font-bold text-sm mb-2 block w-fit">Nomor Telepon</label>
-                                <input type="text" placeholder="Nomor telepon anda"
-                                    class="border-2 border-slate-800/[0.2] p-3 px-4 w-full rounded text-sm font-bold text-black"
-                                    id="telp" name="telp" v-model="telp">
-                            </div>
-                            <div class="">
                                 <!-- <input type="text" placeholder="Email" class = "border-2 border-slate-800/[0.2] p-3 px-4 w-full rounded text-sm"> -->
                                 <label for="password" class="text-left font-bold text-sm mb-2 block w-fit">Password</label>
                                 <input type="password" placeholder="Password"
@@ -34,19 +28,6 @@
                             </div>
                             <button class="w-full bg-[#FF385C] p-2 rounded text-white outline-none" name="submit"
                                 @click="setDataUser">Daftar</button>
-                        </div>
-                    </div>
-                    <div class="relative w-full h-full sm:block hidden">
-                        <img src="/images/login.jpeg" alt="" class="w-full h-screen object-cover">
-                        <div
-                            class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[rgba(255,56,92,0.7)] w-full h-full flex items-center justify-center">
-                            <h3 class="uppercase font-bold text-4xl text-white text-center">Shop Smarter Not Harder</h3>
-                        </div>
-                        <div
-                            class="flex items-center justify-between absolute top-[90%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-6/12 text-center">
-                            <a href="#" class="text-sm font-[500] text-white">Terms of Service</a>
-                            <a href="#" class="text-sm font-[500] text-white">About Us</a>
-                            <a href="#" class="text-sm font-[500] text-white">Privacy Policy</a>
                         </div>
                     </div>
                 </div>
@@ -71,27 +52,25 @@ export default {
             },
             username: "",
             country: "",
-            telp: "",
             password: "",
             userData: [],
             products: [],
-            checkout:[]
+            checkout: []
         }
     },
     computed: {
     },
     methods: {
         setDataUser() {
-            if (this.username == "" || this.password == "" || this.telp == "") {
+            if (this.username == "" || this.password == "" ) {
                 alert('tolong isi semua kolom!')
                 return false
             }
             const username = this.username;
             const password = this.password;
-            const telp = this.telp;
             const products = this.products;
             const checkout = this.checkout;
-            this.userData.push({ username, password, telp, products, checkout })
+            this.userData.push({ username, password, products, checkout })
             const jsonUserData = JSON.stringify(this.userData);
             localStorage.setItem(username, jsonUserData);
             console.log(localStorage.getItem(username));
@@ -102,7 +81,7 @@ export default {
     },
     async created() {
     },
-    mounted(){
+    mounted() {
         // localStorage.clear();
     }
 }
