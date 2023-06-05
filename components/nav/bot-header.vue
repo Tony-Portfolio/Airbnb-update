@@ -22,16 +22,16 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
                         </svg>
                     </div> -->
                 <div class="relative">
-                    <div class="absolute top-[50%] translate-y-[-50%] left-[-10px] md:left-0 w-[40px] h-[40px] shadow-md rounded-full flex items-center justify-center cursor-pointer"
-                        @click="scroll(-350)">
+                    <div class="absolute top-[50%] translate-y-[-50%] left-[0px] md:left-0 w-[40px] h-[40px] shadow-md rounded-full flex items-center justify-center cursor-pointer"
+                        @click="scroll(-300)">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                             <path fill-rule="evenodd"
                                 d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
                                 clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <div class="absolute top-[50%] translate-y-[-50%] right-[-10px] md:right-0 w-[40px] h-[40px] shadow-md rounded-full flex items-center justify-center cursor-pointer"
-                        @click="scroll(350)">
+                    <div class="absolute top-[50%] translate-y-[-50%] right-[0px] md:right-0 w-[40px] h-[40px] shadow-md rounded-full flex items-center justify-center cursor-pointer"
+                        @click="scroll(300)">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                             <path fill-rule="evenodd"
                                 d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
@@ -39,7 +39,7 @@ const { data: data } = await useFetch('https://dummyjson.com/products/categories
                         </svg>
                     </div>
                     <ul
-                        class="navigation flex gap-2 gap-x-8 flex-nowrap font-[500] text-black/[0.6] text-[13px] overflow-x-scroll text-center whitespace-nowrap scroll relative w-[80%] md:w-[90%] mx-auto transition duration-300 ease-in-out scroll-smooth">
+                        class="navigation flex gap-2 gap-x-8 flex-nowrap font-[500] text-black/[0.6] text-[13px] overflow-x-scroll text-center whitespace-nowrap scroll relative w-[75%] md:w-[90%] mx-auto transition duration-300 ease-in-out scroll-smooth">
                         <NuxtLink :to="'/'">
                             <li class="py-1 relative group" :class="{ active: isActive === 1 }">
                                 <img src="/icons/all.png" alt="" class="w-[25px] h-[25px] mx-auto object-cover">
