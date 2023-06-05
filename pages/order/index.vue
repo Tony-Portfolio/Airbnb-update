@@ -2,7 +2,7 @@
     <div class="">
         <DetailsNavSearch />
         <div class="w-full">
-            <div class="w-full max-w-[1100px] mx-auto p-4">
+            <div class="w-full max-w-[1100px] mx-auto p-4 min-h-screen">
                 <div
                     class="w-full flex items-center justify-center text-center md:relative sticky top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20] mx-4">
                     <h4

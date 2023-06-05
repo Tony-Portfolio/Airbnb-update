@@ -11,7 +11,7 @@
             </div>
         </div>
         <div
-            class=" md:mx-auto md:my-4 md:my-14 flex flex-col md:gap-16 md:w-11/12 lg:w-10/12 w-full px-4 md:px-14 md:px-0 my-16">
+            class=" md:mx-auto md:my-4 md:my-14 flex flex-col md:gap-16 md:w-11/12 lg:w-10/12 w-full px-4 md:px-14 md:px-0 my-16 min-h-screen">
             <div
                 class="w-full flex items-center justify-center text-center md:relative fixed top-0 left-0 w-full bg-white p-4 md:bg-transparent md:p-0 z-[20]">
                 <h4
@@ -55,14 +55,20 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="">
+                    <div class="" v-if="cart.length != 0">
                         <div class="font-[13px] font-[600] flex items-center justify-between text-black/[0.8]">
                             <h4>Total (<span class="underline">USD</span>)</h4>
                             <p>$. {{ (cart.total * 1).toLocaleString() }}.00</p>
                         </div>
-                    </div><button
-                            class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold"
-                            @click="dataCheckOut">Checkout</button>
+                    </div>
+                    <div class="" v-else>
+                        <div class="font-[13px] font-[600] flex items-center justify-between text-black/[0.8]">
+                            <h4>Anda belum membeli barang / produk</h4>
+                        </div>
+                    </div>
+                    <button
+                        class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold"
+                        @click="dataCheckOut">Checkout</button>
                 </div>
             </div>
         </div>
@@ -97,7 +103,8 @@
                 </div>
             </footer>
         </div>
-        <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out" :class="{ 'block': !isUserLogin,'hidden': isUserLogin }">
+        <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out"
+            :class="{ 'block': !isUserLogin, 'hidden': isUserLogin }">
             <div class="relative w-full h-full flex items-center justify-center">
                 <div class="absolute top-0 left-0 w-full h-full bg-black/[0.8] z-[31]"></div>
                 <div class="bg-white p-4 rounded-lg z-[32] w-[350px] mx-4">
@@ -161,7 +168,7 @@ export default {
     },
     methods: {
         dataCheckOut() {
-            if(this.checkBoxes.length == 0){
+            if (this.checkBoxes.length == 0) {
                 alert("tolong pilih barang yang akan di checkout")
                 return false
             }
@@ -176,7 +183,7 @@ export default {
             const jsonCheckOut = JSON.stringify(this.checkOut)
             localStorage.setItem('checkOut', jsonCheckOut)
             console.log(this.checkOut);
-            window.location.href='/checkout/'
+            window.location.href = '/checkout/'
         },
         getImg(id) {
             const product = this.dataProduct.products.find(item => item.id === id);
