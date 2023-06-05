@@ -177,7 +177,6 @@ export default {
             const filteredProducts = userCart[0].products.filter(product => {
                 return !checkoutArray.some(item => item.id === product.id);
             });
-            console.log(filteredProducts);
             userCart[0].products = filteredProducts;
             // add checkout data
             const checkout_items = this.cart;
@@ -199,26 +198,22 @@ export default {
             userCart[0].checkout.push(checkout);
             const jsonCart = JSON.stringify(userCart);
             localStorage.setItem(userLoginName, jsonCart);
-            console.log(localStorage.getItem(userLoginName))
             window.location.href = "/order/";
             localStorage.removeItem("checkOut");
         },
         async getCartData() {
             let userCheckout = JSON.parse(localStorage.getItem("checkOut"));
             userCheckout.sort((a, b) => a.id - b.id);
-            console.log(userCheckout)
             const query = "https://dummyjson.com/carts/add";
             const requestData = {
                 userId: 1,
                 products: userCheckout
             };
-            console.log(requestData)
             try {
                 const response = await axios.post(query, requestData, {
                     headers: { 'Content-Type': 'application/json' },
                 });
                 this.cart = response.data
-                console.log(this.cart)
             } catch (error) {
                 console.log(error);
             }

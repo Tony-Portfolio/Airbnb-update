@@ -86,8 +86,6 @@ export default {
             const userLoginName = isUserLogin[0].username;
             let userData = JSON.parse(localStorage.getItem(userLoginName));
             this.userData = userData[0];
-            console.log(this.userData);
-            console.log(this.userData.checkout[0].checkout_items.products[0].title);
         },
         // getImg(id) {
         //     const product = this.dataProduct.products.find(item => item.id === id);

@@ -104,18 +104,6 @@
             </footer>
         </div>
         <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out"
-            :class="{ 'block': !isUserLogin, 'hidden': isUserLogin }">
-            <div class="relative w-full h-full flex items-center justify-center">
-                <div class="absolute top-0 left-0 w-full h-full bg-black/[0.8] z-[31]"></div>
-                <div class="bg-white p-4 rounded-lg z-[32] w-[350px] mx-4">
-                    <img src="/access.gif" alt="" class="mx-auto">
-                    <h4 class="font-[500] text-base text-center my-4">Akses ditolak. Harap masuk ke akun anda <NuxtLink
-                            to="/login"><span class="text-[#FF385C] underline">Masuk</span></NuxtLink>
-                    </h4>
-                </div>
-            </div>
-        </div>
-        <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out"
             :class="{ 'top-0 opacity-100': displayDeletePopUp, 'top-[100%] opacity-0': !displayDeletePopUp }"
             style="transition:opacity 0.3s">
             <div class="relative w-full h-full flex items-center justify-center">
@@ -182,7 +170,6 @@ export default {
             localStorage.removeItem('checkOut')
             const jsonCheckOut = JSON.stringify(this.checkOut)
             localStorage.setItem('checkOut', jsonCheckOut)
-            console.log(this.checkOut);
             window.location.href = '/checkout/'
         },
         getImg(id) {
@@ -212,8 +199,8 @@ export default {
             const isUserLogin = JSON.parse(localStorage.getItem("login"));
             const userLoginName = isUserLogin[0].username;
             let userCart = JSON.parse(localStorage.getItem(userLoginName));
-            if (!userCart || !userCart[0].products) {
-                userCart = { products: [] };
+            if (!userCart || !userCart[0].products || userCart[0].products.length == 0) {
+                userCart[0].products = [''];
             }
             userCart[0].products.sort((a, b) => a.id - b.id);
             const query = "https://dummyjson.com/carts/add";
