@@ -121,7 +121,7 @@
                         </div>
                         <hr class="my-8 w-full md:hidden block">
                         <div
-                            class="md:shadow-lg md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px]">
+                            class="md:shadow-lg md:p-4 p-0 md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px]">
                             <div class="rounded font-bold flex flex-col gap-4 md:gap-0">
                                 <div class="p-2 flex flex-col gap-2">
                                     <div class="flex items-center gap-2">
