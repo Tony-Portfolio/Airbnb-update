@@ -55,7 +55,9 @@ export default {
             password: "",
             userData: [],
             products: [],
-            checkout: []
+            checkout: [],
+            profile_picture : "/default.jpg",
+            profile_description : "",
         }
     },
     computed: {
@@ -70,7 +72,9 @@ export default {
             const password = this.password;
             const products = this.products;
             const checkout = this.checkout;
-            this.userData.push({ username, password, products, checkout })
+            const profile_picture = this.profile_picture;
+            const profile_description = this.profile_description;
+            this.userData.push({ username, password, profile_picture, profile_description, products, checkout })
             const jsonUserData = JSON.stringify(this.userData);
             localStorage.setItem(username, jsonUserData);
             console.log(localStorage.getItem(username));

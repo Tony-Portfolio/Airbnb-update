@@ -30,7 +30,7 @@
                             <p>Metode Pengiriman: {{ items.delivery_method }}</p>
                             <p>Tanggal Checkout: {{ items.checkout_date }}</p>
                         </div>
-                        <p v-if="items.checkout_items.products.length > 1" class = "text-green-500">Gratis Biaya Pengiriman, Pembelian lebih dari 1 barang</p>
+                        <p v-if="items.checkout_items.totalQuantity > 1" class = "text-green-500">Gratis Biaya Pengiriman, Pembelian lebih dari 1 barang</p>
                         <h4 class="mt-8 font-[500]">Barang</h4>
                         <div>
                             <div v-for="product in items.checkout_items.products" :key="product.id"

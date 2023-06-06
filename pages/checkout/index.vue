@@ -177,7 +177,7 @@ export default {
             payment_coupon: "Tidak ada kupon",
             delivery_method: "Pengiriman Reguler",
             checkout_items: [],
-            shipping: 5,
+            shipping: 0,
             success : false
         }
     },
@@ -186,10 +186,9 @@ export default {
     },
     computed: {
         shippingfee() {
-            const checkoutArray = JSON.parse(localStorage.getItem("checkOut"));
-            if (this.delivery_method == "Pengiriman Instan" && checkoutArray.length == 1)
+            if (this.delivery_method == "Pengiriman Instan" && this.cart.totalQuantity == 1)
                 this.shipping = 15;
-            else if (this.delivery_method == "Pengiriman Reguler" && checkoutArray.length == 1)
+            else if (this.delivery_method == "Pengiriman Reguler" && this.cart.totalQuantity == 1)
                 this.shipping = 5
             else {
                 this.shipping = 0;
@@ -253,6 +252,7 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+            this.shippingfeecall();
         },
         getImg(id) {
             const product = this.dataProduct.products.find(item => item.id === id);
@@ -266,9 +266,19 @@ export default {
                 console.log(error);
             }
         },
+        shippingfeecall() {
+            if (this.delivery_method == "Pengiriman Instan" && this.cart.totalQuantity == 1)
+                this.shipping = 15;
+            else if (this.delivery_method == "Pengiriman Reguler" && this.cart.totalQuantity == 1)
+                this.shipping = 5
+            else {
+                this.shipping = 0;
+            }
+        }
     },
     mounted() {
         this.getCartData();
+        this.shippingfeecall();
     }
 }
 </script>
