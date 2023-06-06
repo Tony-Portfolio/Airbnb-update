@@ -320,8 +320,12 @@ export default {
         isUserLog() {
             const isUserLogin = JSON.parse(localStorage.getItem("login"))
             this.isUserLogin = isUserLogin
+            console.log(this.isUserLogin)
             if (!isUserLogin) {
                 return false
+            }
+            else{
+                return true;
             }
         },
         closeCartPopUp() {
@@ -340,15 +344,17 @@ export default {
             }
         },
         checkoutData() {
-            this.isUserLog();
-            const product = [{
-                id: this.dataProduct.id,
-                quantity: this.quantity
-            }];
-            localStorage.removeItem('checkOut');
-            localStorage.removeItem('checkout');
-            localStorage.setItem('checkOut', JSON.stringify(product));
-            window.location.href = "/checkout/";
+            console.log(this.isUserLog());
+            if (this.isUserLog()) {
+                const product = [{
+                    id: this.dataProduct.id,
+                    quantity: this.quantity
+                }];
+                localStorage.removeItem('checkOut');
+                localStorage.removeItem('checkout');
+                localStorage.setItem('checkOut', JSON.stringify(product));
+                window.location.href = "/checkout/";
+            }
         },
         async cartData() {
             this.refreshComponents();
