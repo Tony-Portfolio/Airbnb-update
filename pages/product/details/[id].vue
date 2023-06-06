@@ -4,7 +4,7 @@
             <NavMidHeader />
         </div>
 
-        <main class="w-full max-w-[1100px] md:mx-auto mx-0" v-if="dataProduct" :key="dataProduct.id">
+        <main class="w-full max-w-[1200px] md:mx-auto mx-0" v-if="dataProduct" :key="dataProduct.id">
             <section class="md:my-0 md:mx-4 md:p-4 md:p-0">
                 <div class="flex items-center gap-4 md:flex hidden w-full justify-between p-4">
                     <div class="flex items-start flex-col">
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 flex items-start md:justify-between md:gap-8 flex-col md:flex-row flex-grow">
+                    <div class="flex items-start md:justify-between md:gap-8 flex-col md:flex-row flex-grow p-4 md:p-0">
                         <div class="md:p-0 p-0">
                             <h3 class="font-bold text-3xl flex flex-col md:hidden">
                                 {{ dataProduct.title }}
@@ -92,7 +92,7 @@
                                     </svg>
                                     {{ dataProduct.rating }}</span>
                             </h3>
-                            <h3 class="font-[600] text-xl">{{ dataProduct.title }}</h3>
+                            <h3 class="font-[600] text-3xl md:block hidden">{{ dataProduct.title }}</h3>
                             <p class="my-2 my-4 text-lg font-[500]">
                                 {{ dataProduct.description }}
                             </p>
@@ -104,7 +104,7 @@
                                 {{ dataProduct.brand }}
                             </p>
                             <p class="text-base flex gap-2 my-2">
-                                Categori :
+                                Kategori :
                                 <NuxtLink :to="'/product/category/' + dataProduct.category"
                                     class="text-[#FF385C] underline">
                                     {{ dataProduct.category }}
@@ -121,16 +121,30 @@
                         </div>
                         <hr class="my-8 w-full md:hidden block">
                         <div
-                            class="md:shadow-lg md:p-4 p-0 md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px]">
+                            class="md:shadow-lg md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px]">
                             <div class="rounded font-bold flex flex-col gap-4 md:gap-0">
-                                <div class="p-2">
-                                    <h3 class = "text-[18px]">{{ dataProduct.title }}</h3>
-                                    <p class = "font-[500] text-black/[0.8] text-[16px]">${{ dataProduct.price }}.00</p>
+                                <div class="p-2 flex flex-col gap-2">
+                                    <div class="flex items-center gap-2">
+                                        <h3 class="text-[18px]">{{ dataProduct.title }}</h3>
+                                        <span class="text-[14px] font-[400] underline flex items-center gap-1"><svg
+                                                xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                            </svg>
+                                            {{ dataProduct.rating }}</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-[500] text-black/[0.8] text-[16px]">${{ dataProduct.price }}.00 / pcs
+                                        </p>
+                                        <p class="font-[500] text-black/[0.8] text-[16px]">Stok : {{ dataProduct.stock }}
+                                            pcs</p>
+                                    </div>
                                 </div>
                                 <hr class="my-4 md:block hidden">
                                 <div class="flex flex-col gap-2">
                                     <label for="quantity" class="text-[14px] font-[500] text-black/[0.8]">Quantity</label>
-                                    <div class="flex items-center w-full md:w-[350px]">
+                                    <div class="flex items-center w-full md:w-auto">
                                         <p class="text-xl font-bold text-[#FF385C] cursor-pointer w-[40px] text-center bg-slate-800/[0.015] p-2 rounded"
                                             @click="updateQuantity(-1)">-</p>
                                         <input type="number" min="1" :max="dataProduct.stock"
@@ -141,18 +155,28 @@
                                     </div>
                                 </div>
                                 <hr class="my-4 md:block hidden">
-                                <div class="flex items-center flex-row">
+                                <div class="flex items-center justify-between flex-row p-2">
+                                    <p class="font-[500] text-black/[0.8] text-[16px]">${{ dataProduct.price }}.00 x {{
+                                        quantity }}
+                                    </p>
+                                    <p class="font-[500] text-black/[0.8] text-[16px]">${{ totalPrice.toLocaleString() }}.00
+                                    </p>
+                                </div>
+                                <div class="flex items-center flex-row my-2 p-2">
                                     <p class="text-xl">Total : $
                                         <span id="total">
                                             {{ totalPrice.toLocaleString() }}.00
                                         </span>
                                     </p>
                                 </div>
-                                <div class="flex items-center justify-center gap-2 mt-8 flex-nowrap flex-col">
+                                <div class="flex items-center justify-center gap-2 flex-nowrap flex-col">
                                     <button
                                         class="sm:text-base text-sm sm:p-3 p-0 text-[#FF385C] py-[13.5px] border-2 border-[#FF385C] w-full p-2 hover:bg-[#FF385C] hover:text-white transition duration-300 ease-in-out"
                                         @click="cartData"><i class="fa-solid fa-cart-shopping mx-2"></i> Tambah ke
                                         keranjang</button>
+                                    <button
+                                        class="sm:text-base text-sm sm:p-3 p-0 text-white bg-[#FF385C] py-[13.5px] border-2 border-[#FF385C] w-full p-2 hover:bg-[#FF385C] hover:text-white transition duration-300 ease-in-out"
+                                        @click="checkoutData">Beli Sekarang</button>
                                     <!-- <NuxtLink to="/product/cart/" class="w-full"><button
                                             class="sm:text-base text-sm sm:p-4 p-0 text-white py-4 bg-[#FF385C] w-full p-2" @click="cartData"> Bayar Sekarang </button>
                                     </NuxtLink> -->
@@ -162,7 +186,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-4">
+                <div class="md:p-0 p-4">
                     <hr class="my-4">
                     <div class="">
                         <div class="flex items-center gap-2">
@@ -315,6 +339,17 @@ export default {
                 console.log(error);
             }
         },
+        checkoutData() {
+            this.isUserLog();
+            const product = [{
+                id: this.dataProduct.id,
+                quantity: this.quantity
+            }];
+            localStorage.removeItem('checkOut');
+            localStorage.removeItem('checkout');
+            localStorage.setItem('checkOut', JSON.stringify(product));
+            window.location.href = "/checkout/";
+        },
         async cartData() {
             this.refreshComponents();
             this.isUserLog();
@@ -404,38 +439,3 @@ export default {
     },
 }
 </script>
-<style>
-.swiper-button-next {
-    @apply flex items-center justify-center text-sm text-rose-500 hover:translate-x-1 duration-300;
-    display: none;
-}
-
-.swiper-button-prev {
-    @apply flex items-center justify-center text-sm text-rose-500 hover:translate-x-1 duration-300;
-    display: none;
-}
-
-.swiper-button-disabled {
-    display: none;
-}
-
-
-.groupSwiper:hover .swiper-button-prev {
-    display: block;
-}
-
-.groupSwiper:hover .swiper-button-next {
-    display: block;
-}
-
-.swiper-pagination-bullet {
-    @apply bg-rose-400;
-    width: 6px;
-    height: 6px;
-    opacity: 0.5;
-}
-
-.swiper-pagination-bullet-active {
-    opacity: 1;
-}
-</style>
