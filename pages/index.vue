@@ -71,5 +71,10 @@ export default {
     async created() {
         this.getProductData();
     },
+    mounted(){
+        if (localStorage) {
+            localStorage.clear();
+        }
+    }
 }
 </script>
