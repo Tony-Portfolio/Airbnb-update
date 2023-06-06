@@ -108,7 +108,7 @@
                         berlaku. <span class="underline">Kebijakan Privasi</span></p>
                     <button
                         class="bg-gradient-to-r from-[#E92153] to-[#DE105E] w-full p-3 px-6 rounded-md text-white text-center text-[15px] font-bold"
-                        @click="checkout">Lanjutkan</button>
+                        @click="checkout">Checkout</button>
                 </div>
             </div>
         </div>
@@ -143,6 +143,20 @@
             </div>
         </footer>
     </div>
+    <div class="fixed top-0 left-0 w-screen h-screen z-[30] ease-in-out" :class="{ 'top-[100%] opacity-0': !success, 'top-0 opacity-100': success }" style="transition:opacity 0.3s;">
+        <div class="relative w-full h-full flex items-center justify-center">
+            <div class="absolute top-0 left-0 w-full h-full bg-black/[0.8] z-[31]"></div>
+            <div class="bg-white p-4 rounded-lg z-[32] w-[350px] mx-4">
+                <img src="/success.gif" alt="" class="mx-auto">
+                <h4 class="font-[500] text-base text-center my-4 leading-loose">Checkout Sukses. <NuxtLink
+                        to="/order/"><span class="text-[#FF385C] underline">Cek data checkout</span></NuxtLink>
+                        <br>Atau
+                        <NuxtLink
+                        to="/"><span class="text-[#FF385C] underline"> Lanjut Berbelanja</span></NuxtLink>
+                </h4>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import axios from 'axios';
@@ -164,6 +178,7 @@ export default {
             delivery_method: "Pengiriman Reguler",
             checkout_items: [],
             shipping: 5,
+            success : false
         }
     },
     async created() {
@@ -187,6 +202,7 @@ export default {
                 alert("Tolong isi data yang kosong");
                 return false
             }
+            this.success = true;
             const isUserLogin = JSON.parse(localStorage.getItem("login"));
             const userLoginName = isUserLogin[0].username;
             let userCart = JSON.parse(localStorage.getItem(userLoginName));
@@ -219,7 +235,6 @@ export default {
             userCart[0].checkout.push(checkout);
             const jsonCart = JSON.stringify(userCart);
             localStorage.setItem(userLoginName, jsonCart);
-            window.location.href = "/order/";
             localStorage.removeItem("checkOut");
         },
         async getCartData() {
