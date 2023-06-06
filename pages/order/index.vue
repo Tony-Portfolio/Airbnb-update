@@ -30,6 +30,7 @@
                             <p>Metode Pengiriman: {{ items.delivery_method }}</p>
                             <p>Tanggal Checkout: {{ items.checkout_date }}</p>
                         </div>
+                        <p v-if="items.checkout_items.products.length > 1" class = "text-green-500">Gratis Biaya Pengiriman, Pembelian lebih dari 1 barang</p>
                         <h4 class="mt-8 font-[500]">Barang</h4>
                         <div>
                             <div v-for="product in items.checkout_items.products" :key="product.id"
@@ -40,7 +41,9 @@
                                 <p>Total : ${{ product.total }}.00</p>
                             </div>
                             <hr class="my-4">
-                            <p>Total Checkout : ${{ items.checkout_items.total.toLocaleString() }}.00</p>
+                            {{ shippingfee(items.delivery_method, items.checkout_items.products.length) }}
+                            {{ 'Biaya pengiriman : $' + shipping + ".00 (" + items.delivery_method + ")" }}
+                            <p>Total Checkout : ${{ (items.checkout_items.total + shipping).toLocaleString() }}.00 </p>
                         </div>
 
                     </div>
@@ -64,6 +67,7 @@ export default {
             checkout_array: [],
             userData: [],
             dataProduct: [],
+            shipping: 0
         }
     },
     async created() {
@@ -73,6 +77,15 @@ export default {
 
     },
     methods: {
+        shippingfee(methods, item) {
+            if (methods == "Pengiriman Instan" && item == 1)
+                this.shipping = 15;
+            else if (methods == "Pengiriman Reguler" && item == 1)
+                this.shipping = 5
+            else {
+                this.shipping = 0;
+            }
+        },
         async getProductData() {
             try {
                 const res = await axios.get("https://dummyjson.com/products?select=thumbnail&limit=100");

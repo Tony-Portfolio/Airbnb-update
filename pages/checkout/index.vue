@@ -20,7 +20,7 @@
             <div class="p-6 w-full border-[1px] border-black/[0.2] rounded-xl flex items-center justify-between flex">
                 <div class="flex flex-col gap-2">
                     <h3 class="font-[500] text-[16px]">Gratis Pengiriman</h3>
-                    <p class="font-[400] text-[14px]">Pembelian produk lebih dari 2 gratis biaya pengiriman</p>
+                    <p class="font-[400] text-[14px]">Pembelian produk lebih dari 1 gratis biaya pengiriman</p>
                 </div>
                 <div>
                     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation"
@@ -57,10 +57,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full">
+                    <div class="w-full flex flex-col gap-2">
+                        <div class="font-[13px] font-[600] flex items-center justify-between w-full text-black/[0.8]">
+                            <h4>Biaya Pengiriman : </h4>
+                            <p>$. {{ (shipping).toLocaleString() }}.00</p>
+                        </div>
+                        <hr>
                         <div class="font-[13px] font-[600] flex items-center justify-between w-full text-black/[0.8]">
                             <h4>Total (<span class="underline">USD</span>)</h4>
-                            <p>$. {{ (cart.total * 1).toLocaleString() }}.00</p>
+                            <p>$. {{ (cart.total * 1 + shipping).toLocaleString() }}.00</p>
                         </div>
                     </div>
                 </div>
@@ -84,14 +89,16 @@
                     <div class="flex flex-col gap-2">
                         <h4 class="font-[500] text-xl">Kupon</h4>
                         <select name="payment_coupon" id="payment_coupon"
-                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_coupon">
+                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="payment_coupon"
+                            @change="shippingfee">
                             <option value="Tidak ada kupon" selected="selected">Tidak ada kupon</option>
                         </select>
                     </div>
                     <div class="flex flex-col gap-2">
                         <h4 class="font-[500] text-xl">Metode Pengiriman</h4>
                         <select name="delivery_method" id="delivery_method"
-                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="delivery_method">
+                            class="border-[1px] border-black/[0.1] rounded p-2 w-full" v-model="delivery_method"
+                            @change="shippingfee">
                             <option value="Pengiriman Instan">Pengiriman Instan</option>
                             <option value="Pengiriman Reguler" selected="selected">Pengiriman Reguler</option>
                         </select>
@@ -156,10 +163,23 @@ export default {
             payment_coupon: "Tidak ada kupon",
             delivery_method: "Pengiriman Reguler",
             checkout_items: [],
+            shipping: 5,
         }
     },
     async created() {
         this.getProductData();
+    },
+    computed: {
+        shippingfee() {
+            const checkoutArray = JSON.parse(localStorage.getItem("checkOut"));
+            if (this.delivery_method == "Pengiriman Instan" && checkoutArray.length == 1)
+                this.shipping = 15;
+            else if (this.delivery_method == "Pengiriman Reguler" && checkoutArray.length == 1)
+                this.shipping = 5
+            else {
+                this.shipping = 0;
+            }
+        }
     },
     methods: {
         checkout() {

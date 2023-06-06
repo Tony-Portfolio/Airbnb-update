@@ -6,7 +6,7 @@
 
         <main class="w-full max-w-[1200px] md:mx-auto mx-0" v-if="dataProduct" :key="dataProduct.id">
             <section class="md:my-0 md:mx-4 md:p-4 md:p-0">
-                <div class="flex items-center gap-4 md:flex hidden w-full justify-between p-4">
+                <div class="flex items-center gap-4 md:flex hidden w-full justify-between py-4">
                     <div class="flex items-start flex-col">
                         <h3 class="font-bold text-3xl flex flex-col">
                             {{ dataProduct.title }}
@@ -42,6 +42,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="md:hidden block">
+                    <swiper direction="horizontal" :slides-per-view="1" navigation :pagination="{ clickable: false }"
+                        @swiper="onSwiper" @slideChange="onSlideChange" :modules="modules"
+                        class="md:hidden flex max-md:overflow-x-auto">
+                        <swiper-slide class="md:w-1/2 md:pr-1 md:hidden">
+                            <img :src="dataProduct?.thumbnail" alt=""
+                                class="w-full md:aspect-video aspect-square max-md:h-full object-cover h-[300px]" />
+                        </swiper-slide>
+                        <swiper-slide v-if="dataProduct?.images?.lentgh != 0" v-for="image in dataProduct?.images"
+                            class="md:w-1/2 md:pl-1 md:grid md:gap-2 grid-cols-2 max-md:flex md:hidden">
+                            <img :src="image" alt=""
+                                class="w-full md:aspect-video aspect-square max-md:h-full object-cover h-[300px] " />
+                        </swiper-slide>
+                    </swiper>
+                </div>
                 <div class="grid gap-5 md:gap-10 w-full grid-cols-1" style="place-content:center;">
                     <div class="">
                         <!-- <div class="md:hidden block">
@@ -64,7 +79,7 @@
                                 </SwiperSlide>
                             </Swiper>
                         </div> -->
-                        <div class="flex gap-2 md:flex-row flex-col">
+                        <div class="md:flex gap-2 md:flex-row flex-col hidden">
                             <img :src="mainImg" alt=""
                                 class="w-fit block m-auto w-full md:aspect-auto object-cover object-top"
                                 id="img-variant-show">
@@ -121,9 +136,9 @@
                         </div>
                         <hr class="my-8 w-full md:hidden block">
                         <div
-                            class="md:shadow-lg md:p-4 p-0 md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px]">
+                            class="md:shadow-lg md:p-4 p-0 md:border-[1px] md:border-black/[0.1] rounded w-full md:w-[400px] shrink-0">
                             <div class="rounded font-bold flex flex-col gap-4 md:gap-0">
-                                <div class="p-2 flex flex-col gap-2">
+                                <div class="md:p-2 flex flex-col gap-2">
                                     <div class="flex items-center gap-2">
                                         <h3 class="text-[18px]">{{ dataProduct.title }}</h3>
                                         <span class="text-[14px] font-[400] underline flex items-center gap-1"><svg
@@ -281,8 +296,17 @@
 <script>
 
 import axios from 'axios'
+import { Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export default {
+    components: {
+        Swiper,
+        SwiperSlide,
+    },
     data() {
         return {
             layouts: {
@@ -324,7 +348,7 @@ export default {
             if (!isUserLogin) {
                 return false
             }
-            else{
+            else {
                 return true;
             }
         },
@@ -437,11 +461,20 @@ export default {
             navigator.clipboard.writeText(url);
             alert("Link Copied")
         },
-        // removestorage(){
-        //     localStorage.removeItem('products')
-        // }
     },
     mounted() {
+    },
+    setup() {
+        const onSwiper = (swiper) => {
+            // console.log(swiper);
+        };
+        const onSlideChange = () => {
+        };
+        return {
+            onSwiper,
+            onSlideChange,
+            modules: [Navigation, Pagination]
+        };
     },
 }
 </script>
